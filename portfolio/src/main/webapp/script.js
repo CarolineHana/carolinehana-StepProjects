@@ -1,3 +1,4 @@
+ 
 // Copyright 2019 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,14 +16,15 @@
 /**
  * Adds a random greeting to the page.
  */
-function addRandomGreeting() {
-  const greetings =
-      ['Hello world!', '¡Hola Mundo!', '你好，世界！', 'Bonjour le monde!'];
+function addRandomFunFacts() {
+  const FunFacts =
+      ['I can do a hand stand!', 'I can touch my nose with my tongue!', 'I was on the wrestling team for 4 years!', 'I can speak Arabic!'];
 
   // Pick a random greeting.
-  const greeting = greetings[Math.floor(Math.random() * greetings.length)];
+  const facts = FunFacts[Math.floor(Math.random() * FunFacts.length)];
 
   // Add it to the page.
-  const greetingContainer = document.getElementById('greeting-container');
-  greetingContainer.innerText = greeting;
+  const factsContainer = document.getElementById('facts-container');
+  factsContainer.innerText = facts;
 }
+
