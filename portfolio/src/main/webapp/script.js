@@ -28,3 +28,16 @@ function addRandomFunFacts() {
   factsContainer.innerText = facts;
 }
 
+function EnglishPage() {
+    window.location.href = "mainENG.html";
+}
+function ArabicPage() {
+    window.location.href = "mainARB.html";
+    
+}
+
+function HomePage() {
+    window.location.href = "index.html";
+    
+}
+
