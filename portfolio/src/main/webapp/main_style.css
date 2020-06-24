@@ -74,7 +74,13 @@ body, html {
   background-color: white;
   margin-left:20px;
   margin-right:15px;
+  border-style: outset;
+  border-color: #a7c9be;
+  border-width: 5px;
+  text-align: center;
+  
 }
+
 
 .column.right{
   width: 70%;
@@ -96,7 +102,15 @@ body, html {
 
 
 /* card effect for each blog post */
-.card {
+.card.left {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+	background-color: #daeff2;
+   	padding: 20px;
+   	margin-top: 15px;
+    
+    
+}
+.card.right {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
    background-color: white;
    padding: 20px;
