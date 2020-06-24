@@ -28,3 +28,16 @@ function addRandomFunFacts() {
   factsContainer.innerText = facts;
 }
 
+function ReadMore() {
+  var moreText = document.getElementById("more");
+  var btnText = document.getElementById("readmorebtn");
+
+  if (more.style.display === "inline") {
+    btnText.innerHTML = "+ READ MORE"; 
+    moreText.style.display = "none";
+  } else {
+    btnText.innerHTML = "- READ LESS"; 
+    moreText.style.display = "inline";
+    
+  }
+}
