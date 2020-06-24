@@ -28,16 +28,16 @@ function addRandomFunFacts() {
   factsContainer.innerText = facts;
 }
 
-function EnglishPage() {
-    window.location.href = "mainENG.html";
-}
-function ArabicPage() {
-    window.location.href = "mainARB.html";
-    
-}
+function ReadMore() {
+  var moreText = document.getElementById("more");
+  var btnText = document.getElementById("readmorebtn");
 
-function HomePage() {
-    window.location.href = "index.html";
+  if (more.style.display === "inline") {
+    btnText.innerHTML = "+ READ MORE"; 
+    moreText.style.display = "none";
+  } else {
+    btnText.innerHTML = "- READ LESS"; 
+    moreText.style.display = "inline";
     
+  }
 }
-
