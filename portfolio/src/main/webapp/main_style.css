@@ -6,11 +6,13 @@ body, html {
 * {
   box-sizing: border-box;
 }
-
+/* sticky navbar*/
 .navigation {
     padding: 10px;
     background-color: #ddede8; 
     text-align:center;
+    position: fixed;
+  	top: 0;
   	width: 100%;
 }
 .navigation a{
@@ -76,7 +78,7 @@ body, html {
 
 .column.right{
   width: 70%;
-  background-color: white ;
+  background-color: #d3e8e1;
 }
 
 .column h1 {
@@ -90,4 +92,20 @@ body, html {
     margin-left: auto;
     margin-right: auto;
     border-radius: 10px 80px;
+}
+
+
+/* card effect for each blog post */
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+   background-color: white;
+   padding: 20px;
+   margin-top: 15px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
 }
