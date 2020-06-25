@@ -7,7 +7,7 @@ body, html {
 * {
   box-sizing: border-box;
 }
-/* sticky navbar*/
+/*navigtion and header combined*/
 .navigation {
     height: 250px;
     width: 100%;
@@ -15,7 +15,6 @@ body, html {
     background-repeat: no-repeat;
     background-size: cover;
     background-position:center center;
-    padding-right:40px ;
    
 }
 .navigation a{
@@ -47,33 +46,46 @@ body, html {
   	text-decoration-style: solid;
   	text-decoration-color: #a7c9be;
 }
+.main{
+    padding: 30px;
+}
+.content{
+    padding:10px;
+}
 
+img {
+    float: center;
+    width:  150px;
+    height: 320px;
+    object-fit: cover;
+}
+
+.row {
+  margin: 10px 26px;
+}
+
+/* Add padding BETWEEN each column */
+.row,
+.row > .column {
+  padding: 2px;
+}
 
 .column {
   float: left;
-  width: 100%;
-  margin-top: 250px;
-  height: 1500px;
-
-}
-
-.column.left{
-  width: 45%;
-  background-color: white;
-  margin-left:20px;
+  width: 33%;
   
 }
 
 
-.column.right{
-  width: 45%;
-  background-color: white;
-  margin-right:20px;
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
 }
 
-.column img {
-  margin-top: 8px;
-  vertical-align: middle;
-}
+
+
+
+
 
 
