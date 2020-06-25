@@ -16,7 +16,13 @@
     <div class="main">
     <h2>Gallery</h2>
     <h3> Welcome to a gallery of some of the photos that describe me. Hover over some of them! </h3>
-
+    <div id="myBtnContainer">
+        <button class="btn active" onclick="filterSelection('all')"> Show all</button>
+        <button class="btn" onclick="filterSelection('friends')"> friends</button>
+        <button class="btn" onclick="filterSelection('family')"> family</button>
+        <button class="btn" onclick="filterSelection('memories')"> memories</button>
+        <button class="btn" onclick="filterSelection('photography"> photography</button>
+    </div>
     <div class="row">
      <div class="column friends">
          <div class="content">
