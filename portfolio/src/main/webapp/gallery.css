@@ -1,0 +1,79 @@
+body, html {
+  height: 100%;
+  background-color: white;
+  margin: 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+/* sticky navbar*/
+.navigation {
+    height: 250px;
+    width: 100%;
+    background-image: url("/Images/header3.JPG");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position:center center;
+    padding-right:40px ;
+   
+}
+.navigation a{
+    color: white;
+    text-align:right;
+    float:right;
+    padding: 30px;
+    font-family: Josefin Sans;
+    font-weight: 600;
+    font-size: 16px;
+    text-decoration: none;
+    
+}
+.navigation h2{
+	font-family: Josefin Sans;
+    text-transform: uppercase;
+    color: white;
+    font-size: 40px;
+  	text-align: left;
+    float: left;
+    line-height: 34px;
+    height: 35px;
+    padding-left: 40px;
+}
+
+.navigation a:hover {
+    color: #a7c9be;
+ 	text-decoration-line: underline;
+  	text-decoration-style: solid;
+  	text-decoration-color: #a7c9be;
+}
+
+
+.column {
+  float: left;
+  width: 100%;
+  margin-top: 250px;
+  height: 1500px;
+
+}
+
+.column.left{
+  width: 45%;
+  background-color: white;
+  margin-left:20px;
+  
+}
+
+
+.column.right{
+  width: 45%;
+  background-color: white;
+  margin-right:20px;
+}
+
+.column img {
+  margin-top: 8px;
+  vertical-align: middle;
+}
+
+
