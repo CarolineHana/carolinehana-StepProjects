@@ -18,7 +18,10 @@
  */
 function addRandomFunFacts() {
   const FunFacts =
-      ['I can do a hand stand!', 'I can touch my nose with my tongue!', 'I was on the wrestling team for 4 years!', 'I can speak Arabic!'];
+      [, 'My zodiac sign is a Leo', 'I was in a PBS documentary', 'Ive audtioned for jeporady',
+      'My friends and I made own langauge', 'I remember song lyrics more than my own life',
+      'Im terrible at spelling', 'I can sleep while standing', 
+      'I can put my foot behind my head', 'I can touch my nose with my tongue'];
 
   // Pick a random greeting.
   const facts = FunFacts[Math.floor(Math.random() * FunFacts.length)];
@@ -28,15 +31,24 @@ function addRandomFunFacts() {
   factsContainer.innerText = facts;
 }
 
+// adds a collapsible button 
 function ReadMore() {
   var moreText = document.getElementById("more");
-  var btnText = document.getElementById("readmorebtn");
 
-  if (more.style.display === "inline") {
-    btnText.innerHTML = "+ READ MORE"; 
+   if (moreText.style.display === "inline") {
     moreText.style.display = "none";
   } else {
-    btnText.innerHTML = "- READ LESS"; 
+    moreText.style.display = "inline";
+    
+  }
+}
+
+function ReadMore1() {
+  var moreText = document.getElementById("more1");
+
+   if (moreText.style.display === "inline") {
+    moreText.style.display = "none";
+  } else {
     moreText.style.display = "inline";
     
   }
