@@ -63,7 +63,7 @@ body, html {
   float: left;
   width: 100%;
   margin-top: 15px;
-  height: 1500px;
+  height: 3000px;
 
 }
 .column.left{
@@ -125,7 +125,6 @@ body, html {
 .blogimg{
   width: 100%;
   padding: 15px;
-  height: auto;
   display: block;
 }
 
@@ -143,6 +142,39 @@ body, html {
 
 
 #readmorebtn {
+  background-color: #5e5e5d;
+  color: white;
+  padding: 10px;
+  width: 100%;
+  border: none;
+  text-align: center;
+  outline: none;
+  font-size: 15px;
+}
+
+#readmorebtn1 {
+  background-color: #5e5e5d;
+  color: white;
+  padding: 10px;
+  width: 100%;
+  border: none;
+  text-align: center;
+  outline: none;
+  font-size: 15px;
+}
+
+#readmorebtn2 {
+  background-color: #5e5e5d;
+  color: white;
+  padding: 10px;
+  width: 100%;
+  border: none;
+  text-align: center;
+  outline: none;
+  font-size: 15px;
+}
+
+#readmorebtn3 {
   background-color: #5e5e5d;
   color: white;
   padding: 10px;
