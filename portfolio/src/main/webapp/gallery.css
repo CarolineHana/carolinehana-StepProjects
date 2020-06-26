@@ -55,6 +55,9 @@ body, html {
 }
 .content{
     padding:10px;
+    position: relative;
+    width:  350px;
+    height: 330px;
 }
 
 img {
@@ -107,7 +110,30 @@ img {
 .btn:hover {
   background-color: #ddd;
 }
+
+/*for hover text*/
+.overlay {
+  position: absolute; 
+  bottom: 0px; 
+  width: 330px;
+  background: #d9d7d2;
+  background: #d9d7d2; /* Black see-through */ 
+  transition: .5s ease;
+  opacity:0;
+  color: black;
+  font-size: 15px;
+  padding: 18px;
+  text-align: center;
+  
+}
+
+
+
+.content:hover .overlay {
+  opacity: .7;
+}
  
+
 
 
 
