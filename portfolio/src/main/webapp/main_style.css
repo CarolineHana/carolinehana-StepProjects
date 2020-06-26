@@ -188,3 +188,11 @@ body, html {
     text-indent:40px; 
     }
 
+.contact{
+    float: center;
+    width:  40px;
+    height: 40px;
+    margin: 10px;
+    object-fit: cover;
+}
+
