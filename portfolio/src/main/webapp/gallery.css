@@ -22,14 +22,14 @@ body, html {
     text-align:right;
     float:right;
     padding: 30px;
-    font-family: Josefin Sans;
+    font-family:'Josefin Sans', serif;
     font-weight: 600;
     font-size: 16px;
     text-decoration: none;
     
 }
 .navigation h2{
-	font-family: Josefin Sans;
+	font-family:'Josefin Sans', serif;
     text-transform: uppercase;
     color: white;
     font-size: 40px;
@@ -48,6 +48,10 @@ body, html {
 }
 .main{
     padding: 30px;
+    padding-top:10px;
+    float: center;
+    text-align:center;
+    font-style: italic;
 }
 .content{
     padding:10px;
@@ -73,7 +77,7 @@ img {
 .column {
   float: left;
   width: 33%;
-  display: none;    
+  display: none ;    
 }
 
 
@@ -89,21 +93,24 @@ img {
 
 /* Style the buttons */
 .btn {
-  border: none;
-  outline: none;
   padding: 12px 16px;
-  background-color: white;
+  background-color: #113773;
+  border: none;
+  float: center;
   cursor: pointer;
+  text-transform: uppercase;
+  color: white;
+  text-align: center;
+  margin-right: 10px;
 }
 
 .btn:hover {
   background-color: #ddd;
 }
+ 
 
-.btn.active {
-  background-color: #666;
-  color: white;
-}
+
+
 
 
 
