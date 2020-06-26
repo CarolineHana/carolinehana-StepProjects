@@ -30,20 +30,3 @@ function RemoveClass(element, name) {
   }
   element.className = arr1.join(" ");
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
