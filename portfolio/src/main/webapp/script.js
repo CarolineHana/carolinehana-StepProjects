@@ -34,10 +34,13 @@ function addRandomFunFacts() {
 // adds a collapsible button 
 function ReadMore() {
   var moreText = document.getElementById("more");
+  var btnText = document.getElementById("readmorebtn");
 
    if (moreText.style.display === "inline") {
+    btnText.innerHTML = "+ READ MORE"; 
     moreText.style.display = "none";
   } else {
+    btnText.innerHTML = "- READ LESS";
     moreText.style.display = "inline";
     
   }
@@ -45,10 +48,13 @@ function ReadMore() {
 
 function ReadMore1() {
   var moreText = document.getElementById("more1");
+  var btnText = document.getElementById("readmorebtn1");
 
    if (moreText.style.display === "inline") {
+    btnText.innerHTML = "+ READ MORE"; 
     moreText.style.display = "none";
   } else {
+    btnText.innerHTML = "- READ LESS";
     moreText.style.display = "inline";
     
   }
@@ -56,10 +62,28 @@ function ReadMore1() {
 
 function ReadMore2() {
   var moreText = document.getElementById("more2");
+  var btnText = document.getElementById("readmorebtn2");
 
    if (moreText.style.display === "inline") {
+    btnText.innerHTML = "+ READ MORE"; 
     moreText.style.display = "none";
   } else {
+    btnText.innerHTML = "- READ LESS";
+    moreText.style.display = "inline";
+    
+  }
+}
+  
+
+function ReadMore3() {
+  var moreText = document.getElementById("more3");
+  var btnText = document.getElementById("readmorebtn3");
+
+   if (moreText.style.display === "inline") {
+    btnText.innerHTML = "+ READ MORE"; 
+    moreText.style.display = "none";
+  } else {
+    btnText.innerHTML = "- READ LESS";
     moreText.style.display = "inline";
     
   }
