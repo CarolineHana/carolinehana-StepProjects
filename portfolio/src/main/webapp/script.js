@@ -53,3 +53,14 @@ function ReadMore1() {
     
   }
 }
+
+function ReadMore2() {
+  var moreText = document.getElementById("more2");
+
+   if (moreText.style.display === "inline") {
+    moreText.style.display = "none";
+  } else {
+    moreText.style.display = "inline";
+    
+  }
+}
