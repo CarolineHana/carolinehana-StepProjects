@@ -1,0 +1,175 @@
+body, html {
+  height: 100%;
+  background-color: white;
+  margin: 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+.header {
+    height: 600px;
+    width: 100%;
+    background-image: url("/Images/me.gif");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position:center center;
+   
+}
+.header a{
+    color: white;
+    text-align:right;
+    float:right;
+    padding: 30px;
+    font-family: 'Courier New', monospace;
+    font-weight: 600;
+    font-size: 16px;
+    text-decoration: none;
+    
+}
+.header h2{
+    font-family: 'Georgia', serif;
+    color: white;
+    font-size: 45px;
+  	text-align: center;
+    float: center;
+    line-height: 34px;
+    height: 35px;
+    padding-top: 30px;
+    font-weight: bold;
+
+}
+
+
+.header h3{
+    font-family: 'Courier New', monospace;
+    text-transform: uppercase;
+    color: white;
+    font-size: 30px;
+    font-weight: 300; 
+    float: center;
+  	text-align: center;
+    line-height: 34px;
+    height: 35px;
+    padding-top:350px;
+    letter-spacing: 3px;
+    font-style: italic;
+
+}
+
+
+
+.header a:hover {
+    color: #a7c9be;
+ 	text-decoration-line: underline;
+  	text-decoration-style: solid;
+  	text-decoration-color: #a7c9be;
+}
+
+.column {
+  float: left;
+  width: 100%;
+  height: 800px;
+
+}
+.column.left{
+  width: 45%;
+  background-color: white;
+  text-align: left;
+  float: left;
+  
+}
+
+.column h3{
+ font-family: 'Courier New', monospace;
+    text-transform: uppercase;
+    color: black;
+    font-size: 30px;
+    font-weight: 300; 
+  	text-align: left;
+    line-height: 34px;
+    height: 35px;
+    padding-top:30px;
+    padding-left:30px;
+    letter-spacing: 3px;
+    font-style: italic;
+}
+
+.column h2{
+    font-family: 'Georgia', serif;
+    color: black;
+    font-size: 45px;
+  	text-align: left;
+    line-height: 34px;
+    height: 35px;
+    padding-top: 35px;
+    padding-left:80px;
+    font-weight: bold;
+}
+
+.column h3{
+ font-family: 'Courier New', monospace;
+    text-transform: uppercase;
+    color: black;
+    font-size: 30px;
+    font-weight: 300; 
+  	text-align: left;
+    line-height: 34px;
+    height: 35px;
+    padding-top:30px;
+    padding-left:80px;
+    font-style: italic;
+}
+
+.column p{
+    font-family: 'Georgia', serif;
+    color: #bdaeae;
+    font-size: 14px;
+  	text-align: left;
+    line-height: 20px;
+    padding-top: 20px;
+    padding-left:80px;
+    letter-spacing: 1.2px;
+}
+
+
+
+
+.column.right{
+  width: 45%;
+  background-color: white;
+  text-align: center;
+  float: center;
+}
+
+.scroll{
+    float: center;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width:  40px;
+    height: 40px;
+    margin-top: 20px;
+}
+
+.AboutMe1 {
+    float: center;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 300px;
+    height: 400px;
+    margin-top: 120px;
+    margin-left: 100px;
+}
+
+.AboutMe2 {
+    float: center;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    height: 370px;
+    margin-top: 170px;
+    margin-left: 60px;
+}
