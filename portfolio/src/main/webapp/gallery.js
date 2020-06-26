@@ -1,5 +1,6 @@
 
-
+// dynamic filtering system for images
+// sorts images into categories and displays them according to button clicked
 function filterSelection(c) {
   var x, i;
   x = document.getElementsByClassName("column");
@@ -10,6 +11,8 @@ function filterSelection(c) {
   }
 }
 
+
+// adds cateogory of images selected onto the page based on button press
 function AddClass(element, name) {
   var i, arr1, arr2;
   arr1 = element.className.split(" ");
@@ -19,6 +22,7 @@ function AddClass(element, name) {
   }
 }
 
+// removes images if not selected for filtering
 function RemoveClass(element, name) {
   var i, arr1, arr2;
   arr1 = element.className.split(" ");
