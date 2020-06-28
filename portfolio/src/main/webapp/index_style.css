@@ -30,3 +30,21 @@ body, html {
   padding: 20px;
   text-align: center;
 }
+
+
+.btn {
+  background: none;
+  border-style: solid;
+  border-color: #3c78a6;
+  border-width:5px;
+  cursor: pointer;
+  line-height: 1.5;
+  font: 700 1.2rem 'Roboto Slab', sans-serif;
+  color: #3c78a6;
+  padding: 1em 2em;
+  letter-spacing: 0.05rem;
+  margin-left: 80px;
+  margin-right: 80px;
+  float: center;
+}
+

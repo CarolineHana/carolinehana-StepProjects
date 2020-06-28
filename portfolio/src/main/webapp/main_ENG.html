@@ -3,19 +3,17 @@
   <head>
     <meta charset="UTF-8">
     <title>Caroline's Blog </title>
-    <link rel="stylesheet" href="main_style.css">
+    <link rel="stylesheet" href="main_style.css" >
     <script src="script.js"></script>
   </head>
   <body>
-      <div class ="navigation" id="myNavigation">
-            <a href= "index.html"> HOME</a>
-			<a href="main_ENG.html"> BLOG</a>
-  			<a href="gallery.html">GALLERY</a>
-    	</div>
         <div class ="header">
-    		<h1>Caroline Hana</h1>
-    		<h2> You came to the right place. Get to know more about her! </h2> 
-            <p>(Updated June 2020)</p>
+    		<h2>Caroline's Blog <br> <p>(Updated June 2020)</p></h2>
+            <a href="gallery.html">GALLERY</a>
+			<a href="main_ENG.html"> BLOG</a>
+           <a href ="aboutme_ENG.html"> ABOUT ME </a>
+            <a href= "index.html"> LANGUAGES </a>
+            
         </div>
     	
      	 <div class = "row">
@@ -32,21 +30,20 @@
                 Training in Engineering Program. </p>
             </div>
             <div class="card left">
-           	    <h3> My CS Background </h3>
-        		<p> Growing up  during times of boredem I found my playing with a 
-                    used and passed down engineering kit, making working cars and 
-                    helicopters. This small hobby would encourage me to join the
-                    all girls robotics team in high school as part of the construction
-                    team. Robotics helped me grow to express myself and ideas more 
-                    confidently in public, become a more creative problem solver,
-                    and make some awesome friends who were all incredibly talented.
-                    Of course using dangerous power tools was also a plus :). Going 
-                    to college I knew I want to continue a carrer close to robotics 
-                    and engineering. After doing Google's CSSI program last summer in 
-                    NYC I was able to decide to pursue electrical engineering at Princeton.
-                    Although my experience with CS is limited I'm excited to explore 
-                    what I can create.
-                </p>
+                <h3> What I'm Listening To </h3>
+                <iframe src="https://open.spotify.com/embed/playlist/3WLpuLXQzgblrdBRLRkboy" width="220" height="350" 
+                frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+                <p> Yep that right, I'm currently listening to all my favorite songs from 
+                    middle school because I've reached ~that~ point of quarentine</p>
+            </div>
+            <div class="card left">
+                <h3> Contact </h3>
+                <a href="https://github.com/CarolineHana/my-portfolio">
+                <img class="contact" src="/Images/Github.png" alt="GitHub" >
+                </a>
+                <a href="https://www.linkedin.com/in/carolinehana">
+                <img class="contact" src="/Images/LI.png" alt="linkedin" >
+                </a>
             </div>
 	    </div>
 	
@@ -54,11 +51,11 @@
     	<div class = "column right">
              <h1> Latest Posts </h1>
         	<div class="card right">
-      	        <h2>IM WALKING HERE!-My experience growing up in the Big Apple</h4>
+      	        <h2>IM WALKING HERE!-My Experience Growing Up in the Big Apple</h4>
                 <h5> Jun 23, 2020 </h5>     
-               	    <span id= "more">
-                    <img class= "blogimg" src="/Images/city1.png" alt="World Trade Center Subway" height:"350" >
-      	        	<p> A lot of things in my life have shaped me. I am first
+                    <img class= "blogimg" src="/Images/content-photos/city1.png" alt="World Trade Center Subway" height:"300" >
+                    <span id= "more">
+      	        	<p class="tab"> A lot of things in my life have shaped me. I am first
                     generation student  in my family who all have immigrated 
                     from Egypt. I loved growing up within my culture, I enjoy 
                     the traditions, the food, the people and the unique humor 
@@ -78,15 +75,15 @@
                     people and curious to  learn about their backgrounds, the stories 
                     are endless. </p> 
                     </span>
-                    <button onclick="ReadMore()" id="readmorebtn"><h3>+ READ MORE </h3></button> 
+                    <button id="readmorebtn" onclick="ReadMore('more', 'readmorebtn')" ><h3>+ READ MORE </h3></button> 
             </div>
     	    <div class="card right">
       	        <h2>KNOCKOUT! MY EXPERIENCE IN THE WWE <br> 
                 <h4>Okay I wasn't actually in the WWE... but I did do wrestling!</h4></h2>
                 <h5> Jun 23, 2020 </h5>
-                <span id= "more">
-                <img class= "blogimg" src="/Images/wrestling.jpg" alt="Me and my team" height:"400">
-     	         <p> “Hey don’t break your face on the mat today!” <br>
+                <img class= "blogimg" src="/Images/content-photos/wrestling.jpg" alt="Me and my team" height:"400">
+                 <span id= "more1">
+     	         <p class="tab"> “Hey don’t break your face on the mat today!” <br>
                   As if my fear wasn’t through the roof already, my father’s 
                   statement quite easily cemented my enormous anxiety for my 
                   first wrestling match that day. But let me explain. For some 
@@ -99,8 +96,8 @@
                   I got bruises in twenty places and unimaginable soreness. The 
                   jokes my friends made about my upcoming “big WWE showcase” didn’t 
                   help much either. I was certain that I wanted to quit, but I 
-                  continued attending each practice leading up to my first match. <br>
-		          One mat, one referee, two wrestlers and a whole crowd just 
+                  continued attending each practice leading up to my first match.</p> <br>
+		         <p class="tab"> One mat, one referee, two wrestlers and a whole crowd just 
                   watching,robotics competitions didn’t even feel as nearly 
                   intimidating as this. I ended up not performing my best that 
                   competition day but I continued the season, ending with a total
@@ -111,12 +108,99 @@
                   comfortable with taking risks and tackling problems bigger 
                   than I expect. </p>
                   </span>
-                  <button onclick="ReadMore()" id="readmorebtn"><h3>+ READ MORE </h3> </button> 
+                  <button id="readmorebtn1" onclick="ReadMore('more1', 'readmorebtn1')" ><h3>+ READ MORE </h3></button> 
     	    </div>
+            	<div class="card right">
+      	        <h2> SAY CHEESE: My Photography Hobby </h4>
+                <h5> Jun 24, 2020 </h5>     
+                   <img class= "blogimg" src="/Images/content-photos/photograph.gif" alt="Me and my camera" height:"300">
+                   <span id= "more2">
+      	        	<p class="tab"> I remember the first time I held a real camera. It was
+                    6th grade and I was at my school's basketball game sitting
+                    next to my friend who took photos for the school newspaper.
+                    She would take pictures every so often with the dinosaur of
+                    a camera to capture the game as her assignment. I didn't pay 
+                    much attention to the constant camera shutters until she asked
+                    me to take some photos while she got snacks. I agreed, but
+                    immediately regreted it, there were so many confusing random
+                    buttons and settings. "Just point the camera and shoot" my friend
+                    said as she quickly walked away before I objected.</p> <br>
+                   <p class="tab"> I peered through the view finder as I waited for the right 
+                    moment to take a photo. Immediately he crowd starts cheering as a player 
+                    sprints down the court to the basket. This was the moment. And quickly 
+                    I raised the camera and clicked. There it was: the player mid-air 
+                    about to dunk captured in a split second; the perfect shot. I was so amazed
+                    and eventually the photo ended up on the front page of the newspaper! 
+                    Exilerated by the idea of "capturing the perfect moment, I started to 
+                    take pictures all the time with my phone. I'm not going to lie,
+                    I was terrible in the beginning but I was having so much fun trying 
+                    different techniques and composing images.In high school I eventually 
+                    bought myself a Canon camera and started to build my portfolio by carrying
+                    my camera with my everywhere. Soon people from my high school started 
+                    offering to pay me for taking their profile pictures after school
+                    (I made some good money). Sophmore yeat I decided to make a website 
+                    (just like this one!) to publish my photos and my family and friends loved it 
+                    so it's active till this day. Actually all of the photos on this webpage
+                    are ones taken by me(thats me in the gif!)</p> <br>
+                   <p class="tab"> I'm definitely not a professional photographer. There are several
+                    skills and techniques I have yet to experiment with, but thats exciting for me. The 
+                    moment you take a photo and get that perfect lighting or perfect moment of 
+                    laughter is satifsying. Photos elicit so many emotions, memories and meanings
+                    and I continue to explore this in my work. Check out the gallery to see some 
+                    of my work!
+                     </p> 
+                    </span>
+                    <button id="readmorebtn2" onclick="ReadMore('more2', 'readmorebtn2')" ><h3>+ READ MORE </h3></button> 
+            </div>
+            <div class="card right">
+      	        <h2> BEEP BOOP: My Love for FRC Robotics </h4>
+                <h5> Jun 24, 2020 </h5>     
+                   <img class= "blogimg" src="/Images/content-photos/mem10.jpg" alt="Me at a robotics tournament" >
+                   <span id= "more3">
+      	        	<p class="tab"> With working parents, I learned to adapt 
+                    to solitude by becoming Creator Caroline. My partner in 
+                    crime in those periods being an old engineering kit tossed 
+                    aside by her disinterested brother. The words “designed for 
+                    serious constructors only” printed on on the packaging would 
+                    be something I overlooked as a beginner. Fingers cramped tightening
+                    tiny screws and following head throbbing instructions distracted 
+                    me from school stress. Hours working on model cars, trains, and 
+                    cranes, meant hours spent just to remove the musty metallic stench
+                    from my hands. Yet after I heard the whirling of the mini engine 
+                    and the small ticking gears, the agonizing process became irrelevant.
+                    I would flaunt my creations to tired faces after work,proudly 
+                    showcasing the small crane I engineered to lift a pencil and keys 
+                    or my mini car zoom over stacks of paper.</p><br>
+                   <p class="tab"> In high school robotics, life-size metal 
+                   mechanisms replaced plastic childhood kits. No longer at 
+                   the mercy of toy company selected designs, I was through the
+                   age of incoherent instruction manuals. Only my own capability 
+                   could limit me. In a shop hidden in an unsuspecting high school
+                   basement, I spoke comfortably among deafening machines and wafts 
+                   of wood in the air. I found a space where my charismatic and 
+                   creator sides met. I clinged to this new sense of optimism, adhering 
+                   to a label that encompassed all my facets and not just one 
+                   side of my personality.</p> <br>
+                   <p class="tab"> The days would eventually become weeks of 
+                    constant ear ringing noise and evening train rides home. 
+                    Each year the ¨dreambot¨ would lead to many obstacles, but
+                    that didn’t stop us from making it to championships 2 years 
+                    in a row and going to Michigan(which was probably the highlight
+                    of my senior). Commanding a group of confused rookies before 
+                    competition is no easy task. That hour of directing frantic
+                    young engineers to fix the kinks of our “dreambot” unleashed 
+                    my authoritative voice and mechanical jargon of the new Caroline.
+                    I wasn’t given the instruction manual, I wrote it. I wasn’t the 
+                    silent contributor in a group, my opinions mattered. I no longer
+                    feared criticism, I valued constructive discussions. Those moments
+                    redefined me; I realized I wanted to do something big or rather 
+                    I will do something big.
+                     </p> 
+                    </span>
+                    <button id="readmorebtn3" onclick="ReadMore('more3', 'readmorebtn3')" ><h3>+ READ MORE </h3></button> 
+            </div>
    	     </div>
 
-      
-    </div>
   </body>
 </html>
 

@@ -1,0 +1,132 @@
+body, html {
+  height: 100%;
+  background-color: white;
+  margin: 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+/*navigtion and header combined*/
+.navigation {
+    height: 250px;
+    width: 100%;
+    background-image: url("/Images/header3.JPG");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position:center center;
+   
+}
+.navigation a{
+    color: white;
+    text-align:right;
+    float:right;
+    padding: 30px;
+    font-family:'Courier New', monospace;
+    font-weight: 600;
+    font-size: 16px;
+    text-decoration: none;
+    
+}
+.navigation h2{
+	font-family:'Josefin Sans', serif;
+    text-transform: uppercase;
+    color: white;
+    font-size: 40px;
+  	text-align: left;
+    float: left;
+    line-height: 34px;
+    height: 35px;
+    padding-left: 40px;
+}
+
+.navigation a:hover {
+    color: #a7c9be;
+ 	text-decoration-line: underline;
+  	text-decoration-style: solid;
+  	text-decoration-color: #a7c9be;
+}
+.main{
+    padding: 30px;
+    padding-top:10px;
+    float: center;
+    text-align:center;
+    font-style: italic;
+}
+.content{
+    padding:10px;
+    position: relative;
+    width:  350px;
+    height: 330px;
+}
+
+img {
+    float: center;
+    width:  150px;
+    height: 320px;
+    object-fit: cover;
+}
+
+.row {
+  margin: 10px 26px;
+}
+
+/* Add padding BETWEEN each column */
+.row,
+.row > .column {
+  padding: 2px;
+}
+
+.column {
+  float: left;
+  width: 33%;
+  display: none ;    
+}
+
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.show {
+  display: block;
+}
+
+/* Style the buttons */
+.btn {
+  padding: 12px 16px;
+  background-color: #113773;
+  border: none;
+  float: center;
+  cursor: pointer;
+  text-transform: uppercase;
+  color: white;
+  text-align: center;
+  margin-right: 10px;
+}
+
+.btn:hover {
+  background-color: #ddd;
+}
+
+/*for hover text*/
+.overlay {
+  position: absolute; 
+  bottom: 0px; 
+  width: 330px;
+  background: #d9d7d2;
+  background: #d9d7d2; /* Black see-through */ 
+  transition: .5s ease;
+  opacity:0;
+  color: black;
+  font-size: 15px;
+  padding: 18px;
+  text-align: center;
+  
+}
+
+.content:hover .overlay {
+  opacity: .7;
+}

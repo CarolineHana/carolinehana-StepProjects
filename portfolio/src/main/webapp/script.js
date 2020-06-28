@@ -13,30 +13,18 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-/**
- * Adds a random greeting to the page.
- */
-function addRandomFunFacts() {
-  const FunFacts =
-      ['I can do a hand stand!', 'I can touch my nose with my tongue!', 'I was on the wrestling team for 4 years!', 'I can speak Arabic!'];
 
-  // Pick a random greeting.
-  const facts = FunFacts[Math.floor(Math.random() * FunFacts.length)];
+// adds a collapsible button for each blog post
+// shows and hides blog text based on user action 
+function ReadMore(moreId, readmorebtnId) {
+  var moreText = document.getElementById(moreId);
+  var buttonText = document.getElementById(readmorebtnId);
 
-  // Add it to the page.
-  const factsContainer = document.getElementById('facts-container');
-  factsContainer.innerText = facts;
-}
-
-function ReadMore() {
-  var moreText = document.getElementById("more");
-  var btnText = document.getElementById("readmorebtn");
-
-  if (more.style.display === "inline") {
-    btnText.innerHTML = "+ READ MORE"; 
+   if (moreText.style.display === "inline") {
+    buttonText.innerHTML = "+ READ MORE"; 
     moreText.style.display = "none";
   } else {
-    btnText.innerHTML = "- READ LESS"; 
+    buttonText.innerHTML = "- READ LESS";
     moreText.style.display = "inline";
     
   }
