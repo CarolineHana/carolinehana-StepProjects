@@ -43,8 +43,12 @@ body, html {
   color: #3c78a6;
   padding: 1em 2em;
   letter-spacing: 0.05rem;
-  margin-left: 80px;
-  margin-right: 80px;
+  margin-left: 40px;
+  margin-right: 40px;
   float: center;
+}
+
+#quote-container {
+  margin-top: 20px;
 }
 
