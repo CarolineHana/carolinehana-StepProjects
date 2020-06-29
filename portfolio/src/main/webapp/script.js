@@ -29,3 +29,9 @@ function ReadMore(moreId, readmorebtnId) {
     
   }
 }
+
+function getHelloStatement() {
+  fetch('/data').then(response => response.text()).then((hello) => {
+    document.getElementById('hello-container').innerText = hello;
+  });
+}
