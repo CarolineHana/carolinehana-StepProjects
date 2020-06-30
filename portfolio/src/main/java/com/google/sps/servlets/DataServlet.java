@@ -27,17 +27,8 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
 
-    private ArrayList<String> comments;
+    private ArrayList<String> comments= new ArrayList<>();
     
-    @Override
-    public void init() {
-        // hard coded data for comments
-    comments = new ArrayList<>();
-    comments.add("This website is so cool");    
-    comments.add("Its so fun getting to know more about you!");
-    comments.add("Cant wait to see whats next!");
-    }
-     
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     // convert to JSON
@@ -46,6 +37,27 @@ public class DataServlet extends HttpServlet {
     response.setContentType("application/json;");
     response.getWriter().println(gson.toJson(comments));
    
+  }
+
+   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    // Get the input from the form.
+    String comment = getUserComment(request, "text-input", "");
+
+    comments.add(comment);
+
+    response.sendRedirect("/main_ENG.html");
+
+   }
+
+
+  private String getUserComment(HttpServletRequest request, String name, String DefaultValue) {
+    String text = request.getParameter(name);
+    
+    if (text == null) {
+      System.err.println("There is no input text");
+      return null;
+    }
+    return text;
   }
 
 }
