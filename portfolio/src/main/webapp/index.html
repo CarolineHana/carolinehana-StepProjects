@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Home Page</title>
     <link rel="stylesheet" href="index_style.css">
+    <script src="script.js"></script>
   </head>
   <body>
     <div class="DefaultPageImage"></div>
@@ -12,6 +13,8 @@
       <h2> Select your preferred language below: </h2>
       <a href="aboutme_ENG.html"><button class = "btn">English</button></a>
       <a href="aboutme_ARB.html"><button class = "btn">العربية</button></a>
+      <button onclick="getHelloStatement()" class = "btn">Say Hello!</button>
+      <h1> <div id="hello-container"></div> </h1>
     </div>
   </body>
 </html>

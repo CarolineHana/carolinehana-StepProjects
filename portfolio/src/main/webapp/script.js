@@ -29,3 +29,20 @@ function ReadMore(moreId, readmorebtnId) {
     
   }
 }
+
+// fetchs json array list and makes into list 
+function getComments() {
+  fetch('/data').then(response => response.json()).then((comments) => {
+   const commentsListElement = document.getElementById('comments-container')
+   for (i in comments) { 
+   commentsListElement.appendChild(createListElement(comments[i]));
+   }
+  });
+}
+function createListElement(text) {
+  const liElement = document.createElement('li');
+  liElement.innerText = text;
+  return liElement;
+}
+
+getComments();

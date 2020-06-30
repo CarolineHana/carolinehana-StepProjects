@@ -14,7 +14,13 @@
 
 package com.google.sps.servlets;
 
+import com.google.gson.Gson;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import com.google.appengine.api.datastore.DatastoreService;
+import com.google.appengine.api.datastore.DatastoreServiceFactory;
+import com.google.appengine.api.datastore.Entity;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -24,9 +30,46 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
 
+    private ArrayList<String> comments= new ArrayList<>();
+    
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    response.setContentType("text/html;");
-    response.getWriter().println("<h1>Hello world!</h1>");
+    // convert to JSON
+    Gson gson = new Gson();
+    // Send the JSON as the response
+    response.setContentType("application/json;");
+    response.getWriter().println(gson.toJson(comments));
+   
   }
+
+   
+   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    // Get the input from the form.
+    String comment = getUserComment(request, "text-input", "");
+
+    comments.add(comment);
+
+    Entity TextEntity = new Entity("Comment");
+    TextEntity.setProperty("comment", comment);
+
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    datastore.put(TextEntity);
+
+    response.sendRedirect("/main_ENG.html");
+
+   }
+
+
+  private String getUserComment(HttpServletRequest request, String name, String DefaultValue) {
+    String text = request.getParameter(name);
+    
+    if (text == null) {
+      System.err.println("There is no input text");
+      return null;
+    }
+    return text;
+  }
+
 }
+
+
