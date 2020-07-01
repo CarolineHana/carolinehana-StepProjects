@@ -49,7 +49,7 @@ public class DataServlet extends HttpServlet {
 
     @Override
   public void doGet (HttpServletRequest request, HttpServletResponse response) throws IOException {
-       Query query = new Query("Comment").addSort("timestamp", SortDirection.DESCENDING);
+       Query query = new Query("Comment").addSort("time", SortDirection.DESCENDING);
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
@@ -58,7 +58,7 @@ public class DataServlet extends HttpServlet {
 
     for (Entity entity : results.asIterable()) {
       long id = entity.getKey().getId();
-      String text = (String) entity.getProperty("comment");
+      String text = (String) entity.getProperty("text");
       long timestamp = (long) entity.getProperty("time");
       
 
@@ -78,13 +78,13 @@ public class DataServlet extends HttpServlet {
   @Override
    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     // Get the input from the form.
-    String comment = getUserComment(request, "text-input", "");
+    String text = getUserComment(request, "text-input", "");
     LocalDateTime myDateObj = LocalDateTime.now();
     DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
     String time = myDateObj.format(myFormatObj);
 
     Entity CommentEntity = new Entity("Comment");
-    CommentEntity.setProperty("comment", comment);
+    CommentEntity.setProperty("text", text);
     CommentEntity.setProperty("time", time);
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
