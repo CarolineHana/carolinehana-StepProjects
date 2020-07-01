@@ -14,13 +14,19 @@
 
 package com.google.sps.servlets;
 
+import com.google.sps.data.Comment;
+import com.google.appengine.api.datastore.DatastoreService;
+import com.google.appengine.api.datastore.DatastoreServiceFactory;
+import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.PreparedQuery;
+import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.Query.SortDirection;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import com.google.appengine.api.datastore.DatastoreService;
-import com.google.appengine.api.datastore.DatastoreServiceFactory;
-import com.google.appengine.api.datastore.Entity;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -30,10 +36,23 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
 
-    private ArrayList<String> comments= new ArrayList<>();
+
+    @Override
+  public void doGet (HttpServletRequest request, HttpServletResponse response) throws IOException {
+    Query query = new Query("Comment").addSort("time", SortDirection.DESCENDING);
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    PreparedQuery results = datastore.prepare(query);
     
-  @Override
-  public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    List<Comment> comments = new ArrayList<>();
+    for (Entity entity : results.asIterable()) {
+      long id = entity.getKey().getId();
+      String text = (String) entity.getProperty("text");
+      String time = (String) entity.getProperty("time");
+      Comment comment = new Comment(id, text, time);
+      comments.add(comment);
+     
+    }
+
     // convert to JSON
     Gson gson = new Gson();
     // Send the JSON as the response
@@ -42,34 +61,30 @@ public class DataServlet extends HttpServlet {
    
   }
 
-   
+  @Override
    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     // Get the input from the form.
-    String comment = getUserComment(request, "text-input", "");
+     String text = request.getParameter("text-input");
 
-    comments.add(comment);
 
-    Entity TextEntity = new Entity("Comment");
-    TextEntity.setProperty("comment", comment);
+    LocalDateTime myDateObj = LocalDateTime.now();
+    DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+    String time = myDateObj.format(myFormatObj);
 
-    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-    datastore.put(TextEntity);
+    Entity commentEntity = new Entity("Comment");
+        commentEntity.setProperty("text", text);
+        commentEntity.setProperty("time", time);
+        DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+        datastore.put(commentEntity);
+
+
 
     response.sendRedirect("/main_ENG.html");
 
    }
-
-
-  private String getUserComment(HttpServletRequest request, String name, String DefaultValue) {
-    String text = request.getParameter(name);
-    
-    if (text == null) {
-      System.err.println("There is no input text");
-      return null;
-    }
-    return text;
-  }
-
 }
+
+
+ 
 
 

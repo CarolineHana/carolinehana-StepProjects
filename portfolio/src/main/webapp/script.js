@@ -31,18 +31,40 @@ function ReadMore(moreId, readmorebtnId) {
 }
 
 // fetchs json array list and makes into list 
-function getComments() {
+function getJSON() {
   fetch('/data').then(response => response.json()).then((comments) => {
    const commentsListElement = document.getElementById('comments-container')
-   for (i in comments) { 
-   commentsListElement.appendChild(createListElement(comments[i]));
-   }
+   comments.forEach((comment) => { 
+   commentsListElement.appendChild(createCommentElement(comments));
+   })
   });
 }
-function createListElement(text) {
-  const liElement = document.createElement('li');
-  liElement.innerText = text;
-  return liElement;
+
+
+function createCommentElement(comment) {
+  const commentsListElement = document.createElement('li');
+  commentsListElement.className = 'comment';
+
+  const textElement = document.createElement('span');
+  textElement.innerText = comment.text;
+
+   const timeElement = document.createElement('span');
+    timeElement.innerText = comment.time;
+
+  commentsListElement.appendChild(timeElement);
+  commentsListElement.appendChild(textElement);
+  return commentsListElement;
+  
 }
 
-getComments();
+async function onLoad() {
+    getJSON();
+}
+
+
+
+
+
+
+
+
