@@ -14,6 +14,7 @@
 
 package com.google.sps.servlets;
 
+import com.google.sps.data.Comment;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
@@ -35,34 +36,19 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
 
-    private static class Comment {
-        long id;
-        String text;
-        long timestamp;
-
-    public Comment(long id, String text, long timestamp) {
-      this.id = id;
-      this.text = text;
-      this.timestamp = timestamp;
-        }
-    }
 
     @Override
   public void doGet (HttpServletRequest request, HttpServletResponse response) throws IOException {
-       Query query = new Query("Comment").addSort("time", SortDirection.DESCENDING);
-
+    Query query = new Query("Comment").addSort("time", SortDirection.DESCENDING);
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
     
-    ArrayList<Comment> comments = new ArrayList<>();
-
+    List<Comment> comments = new ArrayList<>();
     for (Entity entity : results.asIterable()) {
       long id = entity.getKey().getId();
       String text = (String) entity.getProperty("text");
-      long timestamp = (long) entity.getProperty("time");
-      
-
-      Comment comment = new Comment(id, text, timestamp);
+      String time = (String) entity.getProperty("time");
+      Comment comment = new Comment(id, text, time);
       comments.add(comment);
      
     }
@@ -78,31 +64,27 @@ public class DataServlet extends HttpServlet {
   @Override
    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     // Get the input from the form.
-    String text = getUserComment(request, "text-input", "");
+     String text = request.getParameter("text-input");
+
+
     LocalDateTime myDateObj = LocalDateTime.now();
     DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
     String time = myDateObj.format(myFormatObj);
 
-    Entity CommentEntity = new Entity("Comment");
-    CommentEntity.setProperty("text", text);
-    CommentEntity.setProperty("time", time);
+    Entity commentEntity = new Entity("Comment");
+        commentEntity.setProperty("text", text);
+        commentEntity.setProperty("time", time);
+        DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+        datastore.put(commentEntity);
 
-    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-    datastore.put(CommentEntity);
+
 
     response.sendRedirect("/main_ENG.html");
 
    }
+}
 
 
-  private String getUserComment(HttpServletRequest request, String name, String DefaultValue) {
-    String text = request.getParameter(name);
-    
-    if (text == null) {
-      return DefaultValue;
-    }
-    return text;
-    }
-  }
+ 
 
 
