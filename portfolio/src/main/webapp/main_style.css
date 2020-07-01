@@ -199,12 +199,6 @@ body, html {
     object-fit: cover;
 }
 
-#comments-container {
-  background-color: white;
-  font-family: Tahoma, sans-serif;
-  margin-bottom: 5px;
-}
-
 textarea {
   border: 1px solid black;
   font-family: Tahoma, sans-serif;
