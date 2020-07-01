@@ -24,6 +24,8 @@ import com.google.gson.Gson;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -42,10 +44,11 @@ public class DataServlet extends HttpServlet {
       this.id = id;
       this.text = text;
       this.timestamp = timestamp;
+        }
     }
-    
-  @Override
-  public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+    @Override
+  public void doGet (HttpServletRequest request, HttpServletResponse response) throws IOException {
        Query query = new Query("Comment").addSort("timestamp", SortDirection.DESCENDING);
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
@@ -56,7 +59,7 @@ public class DataServlet extends HttpServlet {
     for (Entity entity : results.asIterable()) {
       long id = entity.getKey().getId();
       String text = (String) entity.getProperty("comment");
-      long timestamp = (long) entity.getProperty("timestamp");
+      long timestamp = (long) entity.getProperty("time");
       
 
       Comment comment = new Comment(id, text, timestamp);
@@ -72,15 +75,17 @@ public class DataServlet extends HttpServlet {
    
   }
 
-    @Override
+  @Override
    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     // Get the input from the form.
     String comment = getUserComment(request, "text-input", "");
-    long timestamp = System.currentTimeMillis();
+    LocalDateTime myDateObj = LocalDateTime.now();
+    DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+    String time = myDateObj.format(myFormatObj);
 
     Entity CommentEntity = new Entity("Comment");
     CommentEntity.setProperty("comment", comment);
-    CommentEntity.setProperty("timestamp", timestamp);
+    CommentEntity.setProperty("time", time);
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     datastore.put(CommentEntity);
@@ -91,15 +96,13 @@ public class DataServlet extends HttpServlet {
 
 
   private String getUserComment(HttpServletRequest request, String name, String DefaultValue) {
-    String text = request.getParameter("text-input");
+    String text = request.getParameter(name);
     
     if (text == null) {
-      System.err.println("There is no input text");
-      return null;
+      return DefaultValue;
     }
     return text;
-  }
     }
-}
+  }
 
 
