@@ -75,7 +75,7 @@ body, html {
   border-style: outset;
   border-color: #a7c9be;
   border-width: 5px;
-  text-align: center;
+  text-align: left;
   
 }
 
@@ -128,7 +128,7 @@ body, html {
   display: block;
 }
 
-/*for readme button*/
+/*for readme buttons*/
 #more {
     display: none;
     }
@@ -189,11 +189,30 @@ body, html {
     text-indent:40px; 
     }
 
+/* contact information*/
+
 .contact{
     float: center;
     width:  40px;
     height: 40px;
     margin: 10px;
     object-fit: cover;
+}
+
+#comments-container {
+  background-color: white;
+  font-family: Tahoma, sans-serif;
+  margin-bottom: 5px;
+}
+
+textarea {
+  border: 1px solid black;
+  font-family: Tahoma, sans-serif;
+  min-height: 50px;
+  width: 100%;
+}
+
+input {
+     background-color: white;
 }
 
