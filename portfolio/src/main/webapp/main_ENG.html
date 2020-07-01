@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="main_style.css" >
     <script src="script.js"></script>
   </head>
-  <body>
+  <body onload="onLoad()">
         <div class ="header">
     		<h2>Caroline's Blog <br> <p>(Updated June 2020)</p></h2>
             <a href="gallery.html">GALLERY</a>
@@ -29,6 +29,7 @@
                 blog is part of a project series within the Google Student 
                 Training in Engineering Program. </p>
             </div>
+
             <div class="card left">
                 <h3> What I'm Listening To </h3>
                 <iframe src="https://open.spotify.com/embed/playlist/3WLpuLXQzgblrdBRLRkboy" width="220" height="350" 
@@ -36,15 +37,17 @@
                 <p> Yep that's right, I'm currently listening to all my favorite songs from 
                     middle school because I've reached ~that~ point of quarentine</p>
             </div>
-            <div class = "card left"> 
+    
+            <div class = "card left" class="commentbox"> 
                 <h3> Comments </h3>
                     <form action="/data" method="POST">
                          <p>Leave a comment:</p>
-                          <textarea name="text-input">  </textarea>
+                        <input type="text" name="text-input"></input>
                           <br/><br/>
                          <input type="submit" />
                 </form>
-                <ul id = "comments-container"> </ul>
+                  <ul id = "comments-container"> </ul>
+                
             </div> 
 
             <div class="card left">
