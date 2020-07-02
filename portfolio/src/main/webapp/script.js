@@ -35,7 +35,7 @@ function getJSON() {
   fetch('/data').then(response => response.json()).then((comments) => {
    const commentsListElement = document.getElementById('comments-container')
    comments.forEach((comment) => { 
-   commentsListElement.appendChild(createCommentElement(comments));
+   commentsListElement.appendChild(createCommentElement(comment));
    })
   });
 }
@@ -43,17 +43,17 @@ function getJSON() {
 
 function createCommentElement(comment) {
   const commentsListElement = document.createElement('li');
-  commentsListElement.className = 'comment';
+    commentsListElement.className = 'comment';
 
-  const textElement = document.createElement('span');
-  textElement.innerText = comment.text;
+    const textElement = document.createElement('span');
+    textElement.innerText = comment.text + "\n";
 
-   const timeElement = document.createElement('span');
-    timeElement.innerText = comment.time;
-
-  commentsListElement.appendChild(timeElement);
-  commentsListElement.appendChild(textElement);
-  return commentsListElement;
+    const UserInfoElement = document.createElement('span');
+    UserInfoElement.innerText = comment.username + "\t" + comment.time + "\n";
+    
+    commentsListElement.appendChild(UserInfoElement);
+    commentsListElement.appendChild(textElement);
+    return commentsListElement;
   
 }
 

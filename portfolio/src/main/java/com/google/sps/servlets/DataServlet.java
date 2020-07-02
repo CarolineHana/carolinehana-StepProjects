@@ -65,7 +65,11 @@ public class DataServlet extends HttpServlet {
    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     // Get the input from the form.
      String text = request.getParameter("text-input");
-
+    
+    if(text.isEmpty()){
+            response.sendRedirect("/main_ENG.html");
+            return;
+        }
 
     LocalDateTime myDateObj = LocalDateTime.now();
     DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
