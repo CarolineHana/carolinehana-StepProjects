@@ -42,14 +42,25 @@ public class DataServlet extends HttpServlet {
     Query query = new Query("Comment").addSort("time", SortDirection.DESCENDING);
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
+
     
     List<Comment> comments = new ArrayList<>();
+
+    int counter = 0;
     for (Entity entity : results.asIterable()) {
       long id = entity.getKey().getId();
+      String username = (String) entity.getProperty("username");
       String text = (String) entity.getProperty("text");
       String time = (String) entity.getProperty("time");
-      Comment comment = new Comment(id, text, time);
+      Integer amount = (Integer) entity.getProperty("amount");
+      Comment comment = new Comment(id, username, text, time);
       comments.add(comment);
+
+      counter ++;
+      System.out.println(counter + " " + amount);
+            if(counter == amount){
+                break;
+            }
      
     }
 
@@ -64,26 +75,36 @@ public class DataServlet extends HttpServlet {
   @Override
    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     // Get the input from the form.
-     String text = request.getParameter("text-input");
     
+     String username = request.getParameter("name-input");
+     String text = request.getParameter("text-input");
+     Integer amount = Integer.parseInt(request.getParameter("showAmt"));
+    
+    if(username.isEmpty()){
+            response.sendRedirect("/main_ENG.html");
+            return;
+        }
     if(text.isEmpty()){
             response.sendRedirect("/main_ENG.html");
             return;
         }
+
 
     LocalDateTime myDateObj = LocalDateTime.now();
     DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
     String time = myDateObj.format(myFormatObj);
 
     Entity commentEntity = new Entity("Comment");
+        commentEntity.setProperty("username", username);
         commentEntity.setProperty("text", text);
         commentEntity.setProperty("time", time);
+        commentEntity.setProperty("amount", amount);
         DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
         datastore.put(commentEntity);
 
 
 
-    response.sendRedirect("/main_ENG.html");
+    response.sendRedirect("/?show=" + amount);
 
    }
 }
