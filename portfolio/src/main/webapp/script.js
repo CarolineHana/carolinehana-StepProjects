@@ -31,13 +31,14 @@ function ReadMore(moreId, readmorebtnId) {
 }
 
 // fetchs json array list and makes into list 
-function getJSON() {
-  fetch('/data').then(response => response.json()).then((comments) => {
-   const commentsListElement = document.getElementById('comments-container')
-   comments.forEach((comment) => { 
-   commentsListElement.appendChild(createCommentElement(comment));
-   })
-  });
+function getJSON(value) {
+    var value = document.getElementById("showAmt").value;
+    fetch('/data?showAmt='+ value).then(response => response.json()).then((comments) => {
+    const commentsListElement = document.getElementById('comments-container')
+    comments.forEach((comment) => { 
+    commentsListElement.appendChild(createCommentElement(comment));
+     })
+    });
 }
 
 
@@ -57,8 +58,12 @@ function createCommentElement(comment) {
   
 }
 
+
+
+
 async function onLoad() {
     getJSON();
+   
 }
 
 
