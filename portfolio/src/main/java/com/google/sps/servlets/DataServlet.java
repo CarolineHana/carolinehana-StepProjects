@@ -36,13 +36,11 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
 
-
     @Override
   public void doGet (HttpServletRequest request, HttpServletResponse response) throws IOException {
     Query query = new Query("Comment").addSort("time", SortDirection.DESCENDING);
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
-
     
     List<Comment> comments = new ArrayList<>();
 
@@ -52,17 +50,23 @@ public class DataServlet extends HttpServlet {
       String username = (String) entity.getProperty("username");
       String text = (String) entity.getProperty("text");
       String time = (String) entity.getProperty("time");
-      Integer amount = (Integer) entity.getProperty("amount");
       Comment comment = new Comment(id, username, text, time);
       comments.add(comment);
 
-      counter ++;
-      System.out.println(counter + " " + amount);
-            if(counter == amount){
-                break;
-            }
-     
+      counter++;
+      if (counter == 0) break;
+
+          
+      
     }
+     int showAmt = geShownComments(request);
+        if (showAmt == -1) {
+           comments= comments.subList(0,counter);
+        }
+        else{
+           comments= comments.subList(0, showAmt);
+        }
+
 
     // convert to JSON
     Gson gson = new Gson();
@@ -75,17 +79,22 @@ public class DataServlet extends HttpServlet {
   @Override
    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     // Get the input from the form.
-    
+     String[] nameErrorArr = new String[]{"invalid name input"};
+     String[] textErrorArr = new String[]{"invalid text input"};
      String username = request.getParameter("name-input");
      String text = request.getParameter("text-input");
-     Integer amount = Integer.parseInt(request.getParameter("showAmt"));
+
     
     if(username.isEmpty()){
-            response.sendRedirect("/main_ENG.html");
+            Gson gson = new Gson();
+            response.setContentType("application/json");
+            response.getWriter().println(gson.toJson(nameErrorArr));
             return;
         }
     if(text.isEmpty()){
-            response.sendRedirect("/main_ENG.html");
+            Gson gson = new Gson();
+            response.setContentType("application/json");
+            response.getWriter().println(gson.toJson(textErrorArr));
             return;
         }
 
@@ -98,15 +107,32 @@ public class DataServlet extends HttpServlet {
         commentEntity.setProperty("username", username);
         commentEntity.setProperty("text", text);
         commentEntity.setProperty("time", time);
-        commentEntity.setProperty("amount", amount);
         DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
         datastore.put(commentEntity);
 
 
 
-    response.sendRedirect("/?show=" + amount);
+      response.sendRedirect("/main_ENG.html");
+      
 
    }
+
+     private int geShownComments(HttpServletRequest request) {
+    // Get the input from the form.
+     String showAmtString = request.getParameter("showAmt");
+
+    // Convert the input to an int.
+    int showAmt;
+    try {
+      showAmt = Integer.parseInt(showAmtString);
+    } catch (NumberFormatException e) {
+      return -1;
+    }
+
+
+    return showAmt;
+  }
+  
 }
 
 
