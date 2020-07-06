@@ -30,16 +30,28 @@ function ReadMore(moreId, readmorebtnId) {
   }
 }
 
+function getComments(){
+ document.getElementById('showAmt').onchange = function() {
+        localStorage.setItem('selectedtem', document.getElementById('showAmt').value);
+    };
+    if (localStorage.getItem('selectedtem')) {
+        document.getElementById('showAmt_'+localStorage.getItem('selectedtem')).selected = true;
+        return localStorage.getItem('selectedtem');
+    } 
+    else {
+       return 0;
+    }
+}
 // fetchs json array list and makes into list 
 function getJSON(value) {
-    var value = document.getElementById("showAmt").value;
-    fetch('/data?showAmt='+ value).then(response => response.json()).then((comments) => {
+    var value = getComments();
     const commentsListElement = document.getElementById('comments-container')
+    fetch('/data?showAmt='+ value).then(response => response.json()).then((comments) => {
     comments.forEach((comment) => { 
     commentsListElement.appendChild(createCommentElement(comment));
      })
     });
-    if (comments.length == 0) {
+    if (commentsListElement == null) {
     document.getElementById('comments-container').innerHTML = "No comments at this time";
     }
 }
@@ -67,18 +79,4 @@ function deleteComments() {
      document.getElementById('comments-container').classList.remove();
   });
 }
-
-
-
-async function onLoad() {
-    getJSON();
-   
-}
-
-
-
-
-
-
-
 
