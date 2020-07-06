@@ -2,7 +2,13 @@
   <head>
     <meta charset="UTF-8">
     <title>Caroline's Blog </title>
-    <link rel="stylesheet" href="aboutme.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyChjCLhfmnLBmQGZGnAzOFo4NmfJ3TPO0o&callback=initMap&libraries=&v=weekly"
+      defer
+    ></script>
+    <link rel="stylesheet" type="text/css" href="aboutme.css" />
+    <script src="script.js"></script>
   </head>
   <body>
         <div class ="header"> 
@@ -70,9 +76,12 @@
             <img class="AboutMe2" src="/Images/aboutme.jpg" alt= "photo of Caroline Hana"  width: "100%">
             <img class="AboutMe3" src="/Images/gallery/mem5.JPG" alt= "cssi group shot"   width: "100%">
         </div>
-
-        <img class= "section" src="/Images/aboutme.gif" alt= "some videos of me and friends/family">
-  
     </div>
+    <div class="map">
+        <div id="map"></div>
+ 
+     
+</body>
+</html>
 
     
