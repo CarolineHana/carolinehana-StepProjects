@@ -39,6 +39,9 @@ function getJSON(value) {
     commentsListElement.appendChild(createCommentElement(comment));
      })
     });
+    if (comments.length == 0) {
+    document.getElementById('comments-container').innerHTML = "No comments at this time";
+    }
 }
 
 
