@@ -58,6 +58,12 @@ function createCommentElement(comment) {
   
 }
 
+/* Tells the server to delete the comment. */
+function deleteComments() {
+  fetch('/delete-comment', {method: 'POST'}).then(response => response.json()).then((deleted) => {
+     document.getElementById('comments-container').classList.remove();
+  });
+}
 
 
 
