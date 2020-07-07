@@ -1,14 +1,14 @@
-name: JavaScript Lint
+name:JavaScript  Lint
 
-on: [push]
+on: pull_request
 
 jobs:
-  lint:
+  eslint:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v2
-      - name: Lint with ESLint
-        uses: hallee/eslint-action@1.0.3
+      - uses: hallee/eslint-action@1.0.3
+        if: ${{ github.event_name == 'push' || github.event.pull_request.head.repo.full_name == github.repository }} 
         with:
           repo-token: ${{secrets.GITHUB_TOKEN}}
+          source-root: optional-sub-dir
