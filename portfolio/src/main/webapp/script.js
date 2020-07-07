@@ -81,66 +81,108 @@ function deleteComments() {
 }
 
 var map;
-function initMap() {
+function CreateMap() {
   map = new google.maps.Map(document.getElementById("map"), {
-    center: { lat: -34.397, lng: 150.644 },
-    zoom: 8
     center: { lat: 40.7128, lng: -74.0060 },
     zoom: 11
   });
-
-var iconBase =
-        'http://maps.google.com/mapfiles/kml/shapes/';
-
-    addLandmark(
-      map, 40.7396, -74.0089, iconBase + 'camera.png', 'Whitney Museum',
-    '<h2> Whitney Museum</h2>' +
-    '<p> This is one of my favorite art museums in the city' +
-   ' that focuses on American Art and is very unique. </p>');
-
-
- addLandmark(
-      map, 40.729162, -73.780713, iconBase + 'dining.png', 'Romeos Pizzeria',
-    '<h2> Romeos Pizzeria</h2>' +
-    '<p> Every New Yorker has their favorite pizza shop' +
-    ' and this is mine. Share yours! </p>');
-
-
-   addLandmark(
-      map, 40.734346, -73.991225, iconBase + 'dining.png', 'Max Brenners',
-    '<h2> Max Brenners </h2>' +
-    '<p> Max Brenners is really popular for all its chocolate desserts.' +
-    'There are tons of great bakeries and dessert sites in NYC' +
-    ' but I reccomend this one because... chocolate! </p>');
-
-    addLandmark(
-      map, 40.725877, -73.989867, iconBase + 'coffee.png', 'Kona Coffee',
-    '<h2> Kona Coffee and Company </h2>' +
-    '<p> Coffee! Admittedly I dislike coffee a lot, but this one is pretty good'+
-    ' so that must mean something. </p>');
-
-    addLandmark(
-      map, 40.574563, -73.978551, iconBase + 'camera.png', 'Coney Island',
-    '<h2> Coney Island </h2>' +
-    '<p> Every year as a kid I would go to Coney Island beach and'+
-    ' had the best time at the Luna amusement park and beach. Fun Stuff! </p>');
-
-    addLandmark(
-      map, 40.707529, -73.922186, iconBase + 'camera.png', 'Bushwick Collective',
-    '<h2> Bushwick Collective </h2>' +
-    '<p> The Bushwick collective is a display of amazing colorful '+
-    ' street art that goes on for blocks and by several artists.' +
-    'The area is also really good for shopping.</p>');
+    addMarkers();
 }
 
-/** Adds a marker that shows an info window when clicked. */
-function addLandmark(map, lat, lng, icon, title, description) {
-  const marker = new google.maps.Marker(
-      {position: {lat: lat, lng: lng}, map: map, icon: icon, title: title});
+function addMarkers(){
+ var iconBase =
+        'http://maps.google.com/mapfiles/kml/shapes/';
 
-  const infoWindow = new google.maps.InfoWindow({content: description});
-  marker.addListener('click', () => {
-    infoWindow.open(map, marker);
+    const whitneyMarker = new google.maps.Marker({
+    position: {lat: 40.7396, lng: -74.0089},
+    map: map,
+    icon:  iconBase + 'camera.png',
+    title: 'Whitney Museum'
   });
 
-} 
+  const romeoMarker = new google.maps.Marker({
+    position: {lat: 40.729162, lng: -73.780713},
+    map: map,
+    icon: iconBase + 'dining.png',
+    title: 'Romeos Pizzeria'
+  });
+
+  const maxMarker = new google.maps.Marker({
+    position: {lat: 40.734346, lng: -73.991225},
+    map: map,
+    icon: iconBase + 'dining.png',
+    title:  'Max Brenners'
+  });
+
+ const coffeeMarker = new google.maps.Marker({
+    position: {lat: 40.725877, lng: -73.989867},
+    map: map,
+    icon:  iconBase + 'coffee.png',
+    title:  'Kona Coffee'
+  });  
+
+  const coneyMarker = new google.maps.Marker({
+    position: {lat: 40.574563, lng: -73.978551},
+    map: map,
+    icon:  iconBase + 'camera.png',
+    title: 'Coney Island'
+  }); 
+
+   const bushwickMarker = new google.maps.Marker({
+    position: {lat: 40.707529, lng: -73.922186},
+    map: map,
+    icon:  iconBase + 'camera.png',
+    title: 'Bushwick Collective'
+  });   
+
+  const whitneyInfoWindow =
+      new google.maps.InfoWindow({content: '<h2> Whitney Museum</h2>' +
+    '<p> This is one of my favorite art museums in the city' +
+   ' that focuses on American Art and is very unique. </p>'});
+  whitneyMarker.addListener('click', () => {
+  whitneyInfoWindow.open(map, whitneyMarker);
+  });
+
+   const romeoInfoWindow =
+      new google.maps.InfoWindow({content: '<h2> Romeos Pizzeria</h2>' +
+    '<p> Every New Yorker has their favorite pizza shop' +
+    ' and this is mine. Share yours! </p>'});
+   romeoMarker.addListener('click', () => {
+  romeoInfoWindow.open(map, romeoMarker);
+  });
+
+    const maxInfoWindow =
+      new google.maps.InfoWindow({content: '<h2> Max Brenners </h2>' +
+    '<p> Max Brenners is really popular for all its chocolate desserts.' +
+    'There are tons of great bakeries and dessert sites in NYC' +
+    ' but I reccomend this one because... chocolate! </p>'});
+  maxMarker.addListener('click', () => {
+  maxInfoWindow.open(map, maxMarker);
+  });
+
+  const coffeeInfoWindow =
+      new google.maps.InfoWindow({content: '<h2> Kona Coffee and Company </h2>' +
+    '<p> Coffee! Admittedly I dislike coffee a lot, but this one is pretty good'+
+    ' so that must mean something. </p>'});
+  coffeeMarker.addListener('click', () => {
+  coffeeInfoWindow.open(map, coffeeMarker);
+  });
+
+   const coneyInfoWindow =
+      new google.maps.InfoWindow({content: '<h2> Coney Island </h2>' +
+    '<p> Every year as a kid I would go to Coney Island beach and'+
+    ' had the best time at the Luna amusement park and beach. Fun Stuff! </p>'});
+  coneyMarker.addListener('click', () => {
+  coneyInfoWindow.open(map, coneyMarker);
+  });
+
+  const bushwickInfoWindow =
+      new google.maps.InfoWindow({content: '<h2> Bushwick Collective </h2>' +
+    '<p> The Bushwick collective is a display of amazing colorful '+
+    ' street art that goes on for blocks and by several artists.' +
+    'The area is also really good for shopping.</p>'});
+  bushwickMarker.addListener('click', () => {
+  bushwickInfoWindow.open(map, bushwickMarker);
+  });
+}
+
