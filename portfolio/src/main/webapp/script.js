@@ -30,41 +30,60 @@ function ReadMore(moreId, readmorebtnId) {
   }
 }
 
+function getComments(){
+ document.getElementById('showAmt').onchange = function() {
+        localStorage.setItem('selectedtem', document.getElementById('showAmt').value);
+    };
+    if (localStorage.getItem('selectedtem')) {
+        document.getElementById('showAmt_'+localStorage.getItem('selectedtem')).selected = true;
+        return localStorage.getItem('selectedtem');
+    } 
+    else {
+       return 0;
+    }
+}
 // fetchs json array list and makes into list 
-function getJSON() {
-  fetch('/data').then(response => response.json()).then((comments) => {
-   const commentsListElement = document.getElementById('comments-container')
-   comments.forEach((comment) => { 
-   commentsListElement.appendChild(createCommentElement(comments));
-   })
-  });
+function getJSON(value) {
+    var value = getComments();
+    const commentsListElement = document.getElementById('comments-container')
+    fetch('/data?showAmt='+ value).then(response => response.json()).then((comments) => {
+    comments.forEach((comment) => { 
+    commentsListElement.appendChild(createCommentElement(comment));
+     })
+    });
+    if (commentsListElement == null) {
+    document.getElementById('comments-container').innerHTML = "No comments at this time";
+    }
 }
 
 
 function createCommentElement(comment) {
   const commentsListElement = document.createElement('li');
-  commentsListElement.className = 'comment';
+    commentsListElement.className = 'comment';
 
-  const textElement = document.createElement('span');
-  textElement.innerText = comment.text;
+    const textElement = document.createElement('span');
+    textElement.innerText = comment.text + "\n";
 
-   const timeElement = document.createElement('span');
-    timeElement.innerText = comment.time;
-
-  commentsListElement.appendChild(timeElement);
-  commentsListElement.appendChild(textElement);
-  return commentsListElement;
+    const UserInfoElement = document.createElement('span');
+    UserInfoElement.innerText = comment.username + "\t" + comment.time + "\n";
+    
+    commentsListElement.appendChild(UserInfoElement);
+    commentsListElement.appendChild(textElement);
+    return commentsListElement;
   
 }
 
-async function onLoad() {
-    getJSON();
+/* Tells the server to delete the comment. */
+function deleteComments() {
+  fetch('/delete-comment', {method: 'POST'}).then(response => response.json()).then((deleted) => {
+     document.getElementById('comments-container').classList.remove();
+  });
 }
 
-
-
-
-
-
-
-
+var map;
+function initMap() {
+  map = new google.maps.Map(document.getElementById("map"), {
+    center: { lat: -34.397, lng: 150.644 },
+    zoom: 8
+  });
+}
