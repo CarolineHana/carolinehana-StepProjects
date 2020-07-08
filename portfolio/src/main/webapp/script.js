@@ -34,7 +34,8 @@ function getComments(){
  document.getElementById('showAmt').onchange = function() {
         localStorage.setItem('selectedtem', document.getElementById('showAmt').value);
     };
-    if (localStorage.getItem('selectedtem')) {
+    var value = "0";
+    if (localStorage.getItem('selectedtem')) { 
         document.getElementById('showAmt_'+localStorage.getItem('selectedtem')).selected = true;
         return localStorage.getItem('selectedtem');
     } 
@@ -81,12 +82,22 @@ function deleteComments() {
 }
 
 var map;
+let editMarker;
+
 function CreateMap() {
   map = new google.maps.Map(document.getElementById("map"), {
     center: { lat: 40.7128, lng: -74.0060 },
     zoom: 11
   });
     addMarkers();
+
+    // When the user clicks in the map, show a marker with a text box the user can
+  // edit.
+  map.addListener('click', (event) => {
+    createMarkerForEdit(event.latLng.lat(), event.latLng.lng());
+  });
+
+  fetchMarkers();
 }
 
 function addMarkers(){
@@ -185,4 +196,97 @@ function addMarkers(){
   bushwickInfoWindow.open(map, bushwickMarker);
   });
 }
+
+
+/** Fetches markers from the backend and adds them to the map. */
+function fetchMarkers() {
+  fetch('/markers').then(response => response.json()).then((markers) => {
+    markers.forEach(
+        (marker) => {
+            createMarkerForDisplay(marker.lat, marker.lng, marker.content)});
+  });
+}
+
+/** Creates a marker that shows a read-only info window when clicked. */
+function createMarkerForDisplay(lat, lng, content) {
+  const marker =
+      new google.maps.Marker({position: {lat: lat, lng: lng}, map: map});
+
+  const infoWindow = new google.maps.InfoWindow({content: content});
+  marker.addListener('click', () => {
+    infoWindow.open(map, marker);
+  });
+}
+
+/** Sends a marker to the backend for saving. */
+function postMarker(lat, lng, content) {
+  const params = new URLSearchParams();
+  params.append('lat', lat);
+  params.append('lng', lng);
+  params.append('content', content);
+
+  fetch('/markers', {method: 'POST', body: params});
+}
+
+/** Creates a marker that shows a textbox the user can edit. */
+function createMarkerForEdit(lat, lng) {
+  // If we're already showing an editable marker, then remove it.
+  if (editMarker) {
+    editMarker.setMap(null);
+  }
+
+  editMarker =
+      new google.maps.Marker({position: {lat: lat, lng: lng}, map: map});
+
+  const infoWindow =
+      new google.maps.InfoWindow({content: buildInfoWindowInput(lat, lng)});
+
+  // When the user closes the editable info window, remove the marker.
+  google.maps.event.addListener(infoWindow, 'closeclick', () => {
+    editMarker.setMap(null);
+  });
+
+  infoWindow.open(map, editMarker);
+}
+
+/**
+ * Builds and returns HTML elements that show an editable textbox and a submit
+ * button.
+ */
+function buildInfoWindowInput(lat, lng) {
+
+  const name = document.createElement('h2');
+  name.appendChild(document.createTextNode('Name:'));
+  const titleBox = document.createElement('textarea');
+
+  const description = document.createElement('p');
+  description.appendChild(document.createTextNode('Description:'));
+  const descriptionBox = document.createElement('textarea');
+
+
+  const button = document.createElement('button');
+  button.appendChild(document.createTextNode('Submit'));
+
+  const contentBox = document.createElement('textarea');
+  contentBox.appendChild(document.createTextNode(titleBox.value));
+  contentBox.appendChild(document.createTextNode(descriptionBox.value));
+
+
+  button.onclick = () => {
+    postMarker(lat, lng, contentBox.value);
+    createMarkerForDisplay(lat, lng, contentBox.value));
+    editMarker.setMap(null);
+  };
+
+  const containerDiv = document.createElement('div');
+  containerDiv.appendChild(name);
+  containerDiv.appendChild(titleBox);
+  containerDiv.appendChild(description);
+  containerDiv.appendChild(descriptionBox);
+  containerDiv.appendChild(document.createElement('br'));
+  containerDiv.appendChild(button);
+
+  return containerDiv;
+}
+
 
