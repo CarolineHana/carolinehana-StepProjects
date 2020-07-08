@@ -259,7 +259,7 @@ function buildInfoWindowInput(lat, lng) {
   name.appendChild(document.createTextNode('Name:'));
   const titleBox = document.createElement('textarea');
 
-  const description = document.createElement('p');
+  const description = document.createElement('h4');
   description.appendChild(document.createTextNode('Description:'));
   const descriptionBox = document.createElement('textarea');
 
@@ -267,14 +267,21 @@ function buildInfoWindowInput(lat, lng) {
   const button = document.createElement('button');
   button.appendChild(document.createTextNode('Submit'));
 
-  const contentBox = document.createElement('textarea');
-  contentBox.appendChild(document.createTextNode(titleBox.value));
-  contentBox.appendChild(document.createTextNode(descriptionBox.value));
-
 
   button.onclick = () => {
+    const name = document.createElement('h2');
+    name.appendChild(document.createTextNode(titleBox.value));
+    const description = document.createElement('p');
+    description.appendChild(document.createTextNode(descriptionBox.value));
+
+    const content = document.createElement('textarea');
+    content.value= titleBox.value + descriptionBox.value
+    const contentBox = document.createElement('span');
+    contentBox.appendChild(name);
+    contentBox.appendChild(description);
+
     postMarker(lat, lng, contentBox.value);
-    createMarkerForDisplay(lat, lng, contentBox.value));
+    createMarkerForDisplay(lat, lng, contentBox);
     editMarker.setMap(null);
   };
 
