@@ -31,11 +31,11 @@ function ReadMore(moreId, readmorebtnId) {
 }
 
 function getComments(){
- document.getElementById('showAmt').onchange = function() {
-        localStorage.setItem('selectedtem', document.getElementById('showAmt').value);
+ document.getElementById('showAmountText').onchange = function() {
+        localStorage.setItem('selectedtem', document.getElementById('showAmountText').value);
     };
     if (localStorage.getItem('selectedtem')) {
-        document.getElementById('showAmt_'+localStorage.getItem('selectedtem')).selected = true;
+        document.getElementById('showAmount_'+localStorage.getItem('selectedtem')).selected = true;
         return localStorage.getItem('selectedtem');
     } 
     else {
@@ -46,7 +46,7 @@ function getComments(){
 function getJSON(value) {
     var value = getComments();
     const commentsListElement = document.getElementById('comments-container')
-    fetch('/data?showAmt='+ value).then(response => response.json()).then((comments) => {
+    fetch('/data?showAmount='+ value).then(response => response.json()).then((comments) => {
     comments.forEach((comment) => { 
     commentsListElement.appendChild(createCommentElement(comment));
      })
@@ -83,7 +83,40 @@ function deleteComments() {
 var map;
 function initMap() {
   map = new google.maps.Map(document.getElementById("map"), {
-    center: { lat: -34.397, lng: 150.644 },
-    zoom: 8
+    center: { lat: 40.730610, lng: -73.935242 },
+    zoom: 11
   });
+
+var iconBase = 'https://maps.google.com/mapfiles/kml/shapes/';
+var icons = {
+          food: {
+            icon: iconBase + 'dining.png'
+          },
+          fun: {
+            icon: iconBase + 'camera.png'
+          },
+          
+        };
+
+ addLandmark(
+      map, 40.7396, -74.0089, iconBase + 'camera.png', 'Whitney Museum',
+      'One of my favorite art museums with unique art.')
+  addLandmark(
+      map, 40.729166, -73.780730, iconBase + 'dining.png', 'Romeos Pizza',
+      'Best pizza in NYC.')
+  addLandmark(
+      map,40.734328, -73.991224, iconBase + 'dining.png', 'Max Brenners',
+      '<h2Best chocolate desserts.');
+}
+
+/** Adds a marker that shows an info window when clicked. */
+function addLandmark(map, lat, lng, icon, title, description) {
+  const marker = new google.maps.Marker(
+      {position: {lat: lat, lng: lng}, map: map, icon:icon, title: title});
+
+  const infoWindow = new google.maps.InfoWindow({content: description});
+  marker.addListener('click', () => {
+    infoWindow.open(map, marker);
+  });
+
 }

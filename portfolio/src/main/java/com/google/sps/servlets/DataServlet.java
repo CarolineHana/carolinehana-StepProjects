@@ -47,10 +47,10 @@ public class DataServlet extends HttpServlet {
     int counter = 0;
     for (Entity entity : results.asIterable()) {
       long id = entity.getKey().getId();
-      String username = (String) entity.getProperty("username");
+      String userName = (String) entity.getProperty("username");
       String text = (String) entity.getProperty("text");
       String time = (String) entity.getProperty("time");
-      Comment comment = new Comment(id, username, text, time);
+      Comment comment = new Comment(id, userName, text, time);
       comments.add(comment);
 
       counter++;
@@ -59,12 +59,15 @@ public class DataServlet extends HttpServlet {
           
       
     }
-     int showAmt = geShownComments(request);
-        if (showAmt == -1) {
+     int showAmount = getAmount(request);
+        if (showAmount == 0){
+            return;
+        }
+        if (showAmount == -1) {
            comments= comments.subList(0,counter);
         }
         else{
-           comments= comments.subList(0, showAmt);
+           comments= comments.subList(0, showAmount);
         }
 
 
@@ -79,22 +82,20 @@ public class DataServlet extends HttpServlet {
   @Override
    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     // Get the input from the form.
-     String[] nameErrorArr = new String[]{"invalid name input"};
-     String[] textErrorArr = new String[]{"invalid text input"};
-     String username = request.getParameter("name-input");
+     String userName = request.getParameter("name-input");
      String text = request.getParameter("text-input");
 
     
-    if(username.isEmpty()){
+    if(userName.isEmpty()){
             Gson gson = new Gson();
             response.setContentType("application/json");
-            response.getWriter().println(gson.toJson(nameErrorArr));
+            response.getWriter().println(gson.toJson(new String[]{"invalid name input"}));
             return;
         }
     if(text.isEmpty()){
             Gson gson = new Gson();
             response.setContentType("application/json");
-            response.getWriter().println(gson.toJson(textErrorArr));
+            response.getWriter().println(gson.toJson(new String[]{"invalid text input"}));
             return;
         }
 
@@ -104,7 +105,7 @@ public class DataServlet extends HttpServlet {
     String time = myDateObj.format(myFormatObj);
 
     Entity commentEntity = new Entity("Comment");
-        commentEntity.setProperty("username", username);
+        commentEntity.setProperty("userName", userName);
         commentEntity.setProperty("text", text);
         commentEntity.setProperty("time", time);
         DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
@@ -117,20 +118,20 @@ public class DataServlet extends HttpServlet {
 
    }
 
-     private int geShownComments(HttpServletRequest request) {
+     private int getAmount(HttpServletRequest request) {
     // Get the input from the form.
-     String showAmtString = request.getParameter("showAmt");
+     String showAmountString = request.getParameter("showAmountText");
 
     // Convert the input to an int.
-    int showAmt;
+    int showAmount;
     try {
-      showAmt = Integer.parseInt(showAmtString);
+      showAmount = Integer.parseInt(showAmountString);
     } catch (NumberFormatException e) {
       return -1;
     }
 
 
-    return showAmt;
+    return showAmount;
   }
   
 }
