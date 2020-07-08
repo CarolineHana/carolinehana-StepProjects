@@ -259,7 +259,7 @@ function buildInfoWindowInput(lat, lng) {
   name.appendChild(document.createTextNode('Name:'));
   const titleBox = document.createElement('textarea');
 
-  const description = document.createElement('h4');
+  const description = document.createElement('p');
   description.appendChild(document.createTextNode('Description:'));
   const descriptionBox = document.createElement('textarea');
 
@@ -280,7 +280,7 @@ function buildInfoWindowInput(lat, lng) {
     contentBox.appendChild(name);
     contentBox.appendChild(description);
 
-    postMarker(lat, lng, contentBox.value);
+    postMarker(lat, lng, content.value);
     createMarkerForDisplay(lat, lng, contentBox);
     editMarker.setMap(null);
   };
