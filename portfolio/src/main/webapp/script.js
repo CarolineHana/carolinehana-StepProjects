@@ -259,7 +259,7 @@ function buildInfoWindowInput(lat, lng) {
   name.appendChild(document.createTextNode('Name:'));
   const titleBox = document.createElement('textarea');
 
-  const description = document.createElement('h4');
+  const description = document.createElement('p');
   description.appendChild(document.createTextNode('Description:'));
   const descriptionBox = document.createElement('textarea');
 
@@ -280,7 +280,7 @@ function buildInfoWindowInput(lat, lng) {
     contentBox.appendChild(name);
     contentBox.appendChild(description);
 
-    postMarker(lat, lng, contentBox.value);
+    postMarker(lat, lng, content.value);
     createMarkerForDisplay(lat, lng, contentBox);
     editMarker.setMap(null);
   };
@@ -296,4 +296,26 @@ function buildInfoWindowInput(lat, lng) {
   return containerDiv;
 }
 
+// checks login status before allowing user comment section to be disabled //
+async function checkLogin() {
+  const response = await fetch('/login');
+  const result = await response.json();
+  loginContainer = document.getElementById('login');
+  loginContainer.href = result.logLink;
+  commentContainer = document.getElementById('leave-comment');
+
+  if (result.logCheck == 'true'){ 
+    loginContainer.innerText = 'LOGOUT';
+    if (commentContainer) {
+      commentContainer.disabled = false;
+      commentContainer.classList.remove('disabled');
+    }
+  } else {
+    loginContainer.innerText = 'LOGIN';
+    if (commentContainer) {
+      commentContainer.disabled = true;
+      commentContainer.classList.add('disabled');
+    }
+  }
+}
 
