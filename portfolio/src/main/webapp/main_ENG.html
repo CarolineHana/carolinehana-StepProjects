@@ -9,13 +9,13 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
   </head>
-  <body >
+  <body onload="checkLogin()">
         <div class ="header">
     		<h2>Caroline's Blog <br> <p>(Updated June 2020)</p></h2>
-            <a id="accountbutton" href="/login">LOGIN</a>
+            <a href="#" id="login" ></a>
             <a href="gallery.html">GALLERY</a>
 			<a href="main_ENG.html"> BLOG</a>
-           <a href ="aboutme_ENG.html"> ABOUT ME </a>
+            <a href ="aboutme_ENG.html"> ABOUT ME </a>
             <a href= "index.html"> LANGUAGES </a>
         
             
@@ -45,12 +45,10 @@
     
             <div class = "card left"> 
                 <h3> Comments </h3>
-                    <form action="/data" method="POST">
-                        <textarea id= "name" type="text" name="name-input"> YOUR NAME </textarea>
-                        <textarea type="text" name="text-input"> Add your comment here..</textarea>
-                          <br/><br/>
-                         <input type="submit" />
+                         <button id="leave-comment" class="btn btn-info btn-rounded mb-4 disabled" data-toggle="modal" data-target="#my-modal" disabled> 
+                         <span> Leave A Comment </span> </button>
                          <br/> </br>
+                     <form>
                          <label for= "showAmt" >Select Amount to Show</label>
                             <select name="showAmt" id="showAmt" onchange= "getJSON(this)" href="#comments-container">
                             <option id="showAmt_0" disabled="" selected="" value="0" >Please Select</option>
@@ -59,15 +57,47 @@
                             <option id="showAmt_3" value = "15">15</option>
                             <option id="showAmt_4" value = "all">All</option>
                         </select>
-                </form>
+                     </form>
                   <ul type= "text" id = "comments-container" style="list-style-type:none">  </ul>
                   <button id="comment-delete" onclick="deleteComments()" type="button">
                       <span class="glyphicon glyphicon-trash"></span> </button>
-                  
-                   
-                
             </div> 
-
+            
+    <div id="my-modal" class="modal fade" role="dialog" aria-labelledby="mymodal-label" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header text-center">
+            <div class="row">
+              <div class="col-sm-2">
+              </div>
+              <div class="text-center col-sm-8">
+                <h4 class="modal-title font-weight-bold w-100"> Share Your Thoughts </h4>
+              </div>
+              <div class="col-sm-2">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span class="glyphicon glyphicon-remove"> </span>
+                </button>
+              </div>
+            </div>
+            <div class="modal-body mx-3">
+              <form action="/data" method="POST">
+                <div class="md-form mb-5">
+                  <input type="text" name="name-input" id="default-name" class="form-control" required>
+                  <label data-error="wrong" data-success="right" for="default-name"> Your name </label>
+                </div>
+                <div class="md-form mb-5">
+                  <input type="text" name="text-input" id="default-comment" class="form-control" required>
+                  <label data-error="wrong" data-success="right" for="default-comment"> Your comment </label>
+                </div>
+                <div class="modal-footer d-flex justify-content-center">
+                  <input class="btn btn-rounded" type="submit"/>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        </div>
+      </div>
             <div class="card left">
                 <h3> Contact </h3>
                 <a href="https://github.com/CarolineHana/my-portfolio">
