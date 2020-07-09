@@ -26,24 +26,34 @@ import com.google.appengine.api.users.UserServiceFactory;
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
 
-  @Override
+   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    response.setContentType("text/html");
+
     UserService userService = UserServiceFactory.getUserService();
+    String json = null;
 
     if (userService.isUserLoggedIn()) {
       String logoutUrl = userService.createLogoutURL("/");
-      String email = userService.getCurrentUser().getEmail();
-      if (email.equals("carolinehana@google.com")) {
-        response.sendRedirect(logoutUrl);
-      } else {
-        response.sendRedirect(logoutUrl); 
-      }
-    } else {
+      json = convertToJson(logoutUrl, "true"); 
+    } 
+    else {
       String loginUrl = userService.createLoginURL("/");
-       response.sendRedirect(loginUrl);
+      json = convertToJson(loginUrl, "false");
     }
+
+    response.setContentType("application/json;");
+    response.getWriter().println(json);
     
   }
 
+  private String convertToJson(String logLink, String logCheck) {
+    String json = "{";
+    json += "\"logLink\": ";
+    json += "\"" + logLink + "\"";
+    json += ", ";
+    json += "\"logCheck\": ";
+    json += "\"" + logCheck + "\"";
+    json += "}";
+    return json;
+  }
 }
