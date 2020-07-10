@@ -85,7 +85,6 @@ public class DataServlet extends HttpServlet {
      String userName = request.getParameter("name-input");
      String text = request.getParameter("text-input");
 
-
     LocalDateTime myDateObj = LocalDateTime.now();
     DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
     String time = myDateObj.format(myFormatObj);
@@ -115,7 +114,6 @@ public class DataServlet extends HttpServlet {
     } catch (NumberFormatException e) {
       return -1;
     }
-
     return showAmount;
   }
   
