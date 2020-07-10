@@ -4,13 +4,14 @@
     <title>Caroline's Blog </title>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
     <script
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyChjCLhfmnLBmQGZGnAzOFo4NmfJ3TPO0o&callback=initMap&libraries=&v=weekly"
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCiVYYxDmg-v51hhx5uG9SjNCD9oS-EWbQ&callback=initMap&libraries=&v=weekly"
       defer
     ></script>
-    <link rel="stylesheet" type="text/css" href="aboutme.css" />
     <script src="script.js"></script>
+    <link rel="stylesheet" type="text/css" href="aboutme.css" />
+    
   </head>
-  <body>
+  <body onload= "CreateMap()">
         <div class ="header"> 
             <a href="gallery.html">GALLERY</a>
 			<a href="main_ENG.html"> BLOG</a>
@@ -78,8 +79,10 @@
         </div>
     </div>
     <div class="map">
+        <h3 class ="typewriter"> A Few of My Favorite Places ... </h3>
+        <h4> Click on the map to add a place you think is worth visiting! </h4>
         <div id="map"></div>
- 
+    </div>
      
 </body>
 </html>
