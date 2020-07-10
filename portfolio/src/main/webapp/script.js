@@ -196,7 +196,6 @@ function addMarkers(){
   });
 }
 
-
 /** Fetches markers from the backend and adds them to the map. */
 function fetchMarkers() {
   fetch('/markers').then(response => response.json()).then((markers) => {
@@ -262,10 +261,8 @@ function buildInfoWindowInput(lat, lng) {
   description.appendChild(document.createTextNode('Description:'));
   const descriptionBox = document.createElement('textarea');
 
-
   const button = document.createElement('button');
   button.appendChild(document.createTextNode('Submit'));
-
 
   button.onclick = () => {
     const name = document.createElement('h2');
@@ -293,4 +290,27 @@ function buildInfoWindowInput(lat, lng) {
   containerDiv.appendChild(button);
 
   return containerDiv;
+}
+
+// checks login status before allowing user comment section to be disabled //
+async function checkLogin() {
+  const response = await fetch('/login');
+  const result = await response.json();
+  loginContainer = document.getElementById('login');
+  loginContainer.href = result.logLink;
+  commentContainer = document.getElementById('leave-comment');
+
+  if (result.logCheck == 'true'){ 
+    loginContainer.innerText = 'LOGOUT';
+    if (commentContainer) {
+      commentContainer.disabled = false;
+      commentContainer.classList.remove('disabled');
+    }
+  } else {
+    loginContainer.innerText = 'LOGIN';
+    if (commentContainer) {
+      commentContainer.disabled = true;
+      commentContainer.classList.add('disabled');
+    }
+  }
 }

@@ -238,3 +238,11 @@ input {
      background-color: white;
 }
 
+button.disabled:hover span {
+  display:none
+}
+
+button.disabled:hover:before {
+  content:"Log in to comment!"
+}
+
