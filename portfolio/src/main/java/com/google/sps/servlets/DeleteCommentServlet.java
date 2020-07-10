@@ -47,12 +47,8 @@ public class DeleteCommentServlet extends HttpServlet {
       datastore.delete(commentEntityKey); 
     }
 
-     // convert to JSON
-    Gson gson = new Gson();
-    // Send the JSON as the response
-    response.setContentType("application/json;");
-    response.getWriter().println(gson.toJson(""));
-
+     response.setContentType("application/html;");
+    response.getWriter().println();
   }
    
 } 

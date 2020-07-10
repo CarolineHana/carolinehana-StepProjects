@@ -64,11 +64,11 @@ function createCommentElement(comment) {
   
 }
 
-/* Tells the server to delete the comment. */
+/* Tells the server to delete a comment. */
 function deleteComments() {
-  fetch('/delete-comment', {method: 'POST'}).then(response => response.json()).then((deleted) => {
-     document.getElementById('comments-container').classList.remove();
-  });
+  fetch('/delete-comment', {method: 'POST'});
+  const list = document.getElementById('comments-container'); 
+  list.removeChild(list.childNodes[0]);
 }
 
 var map;
