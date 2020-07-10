@@ -30,24 +30,13 @@ function ReadMore(moreId, readmorebtnId) {
   }
 }
 
-function getComments(){
- document.getElementById('showAmt').onchange = function() {
-        localStorage.setItem('selectedtem', document.getElementById('showAmt').value);
-    };
-    var value = "0";
-    if (localStorage.getItem('selectedtem')) { 
-        document.getElementById('showAmt_'+localStorage.getItem('selectedtem')).selected = true;
-        return localStorage.getItem('selectedtem');
-    } 
-    else {
-       return 0;
-    }
-}
+
 // fetchs json array list and makes into list 
-function getJSON(value) {
-    var value = getComments();
-    const commentsListElement = document.getElementById('comments-container')
-    fetch('/data?showAmt='+ value).then(response => response.json()).then((comments) => {
+function getComments(value) {
+    var value = document.getElementById("showAmount").value;
+    const commentsListElement = document.getElementById('comments-container');
+    commentsListElement.innerHTML = '';
+    fetch('/data?showAmount='+ value).then(response => response.json()).then((comments) => {
     comments.forEach((comment) => { 
     commentsListElement.appendChild(createCommentElement(comment));
      })
@@ -58,8 +47,9 @@ function getJSON(value) {
 }
 
 
+
 function createCommentElement(comment) {
-  const commentsListElement = document.createElement('li');
+     const commentsListElement = document.createElement('li');
     commentsListElement.className = 'comment';
 
     const textElement = document.createElement('span');
