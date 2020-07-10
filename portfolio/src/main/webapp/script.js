@@ -31,12 +31,11 @@ function ReadMore(moreId, readmorebtnId) {
 }
 
 function getComments(){
- document.getElementById('showAmt').onchange = function() {
-        localStorage.setItem('selectedtem', document.getElementById('showAmt').value);
+ document.getElementById('showAmountText').onchange = function() {
+        localStorage.setItem('selectedtem', document.getElementById('showAmountText').value);
     };
-    var value = "0";
-    if (localStorage.getItem('selectedtem')) { 
-        document.getElementById('showAmt_'+localStorage.getItem('selectedtem')).selected = true;
+    if (localStorage.getItem('selectedtem')) {
+        document.getElementById('showAmount_'+localStorage.getItem('selectedtem')).selected = true;
         return localStorage.getItem('selectedtem');
     } 
     else {
@@ -47,7 +46,7 @@ function getComments(){
 function getJSON(value) {
     var value = getComments();
     const commentsListElement = document.getElementById('comments-container')
-    fetch('/data?showAmt='+ value).then(response => response.json()).then((comments) => {
+    fetch('/data?showAmount='+ value).then(response => response.json()).then((comments) => {
     comments.forEach((comment) => { 
     commentsListElement.appendChild(createCommentElement(comment));
      })
@@ -295,5 +294,3 @@ function buildInfoWindowInput(lat, lng) {
 
   return containerDiv;
 }
-
-
