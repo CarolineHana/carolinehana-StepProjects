@@ -49,13 +49,13 @@
                          <span> Leave A Comment </span> </button>
                          <br/> </br>
                      <form>
-                         <label for= "showAmt" >Select Amount to Show</label>
-                            <select name="showAmt" id="showAmt" onchange= "getJSON(this)" href="#comments-container">
-                            <option id="showAmt_0" disabled="" selected="" value="0" >Please Select</option>
-                            <option id="showAmt_1" value = "5">5</option>
-                            <option id="showAmt_2" value = "10">10</option>
-                            <option id="showAmt_3" value = "15">15</option>
-                            <option id="showAmt_4" value = "all">All</option>
+                         <label for= "showAmount" >Shown Amount</label>
+                            <select name="showAmount" id="showAmount" onchange= "getComments(this)" href="#comments-container">
+                             <option disabled="" selected="" value="0" >Select...</option>
+                              <option value = "5">5</option>
+                              <option value = "10">10</option>
+                              <option value = "15">15</option>
+                              <option value = "all">All</option>
                         </select>
                      </form>
                   <ul type= "text" id = "comments-container" style="list-style-type:none">  </ul>
@@ -83,14 +83,21 @@
               <form action="/data" method="POST">
                 <div class="md-form mb-5">
                   <input type="text" name="name-input" id="default-name" class="form-control" required>
-                  <label data-error="wrong" data-success="right" for="default-name"> Your name </label>
+                  <br>
+                  <h3 data-error="wrong" data-success="right" for="default-name" class="label label-default"
+                  > Your name </h3>
+                  <br/><br>
                 </div>
                 <div class="md-form mb-5">
-                  <input type="text" name="text-input" id="default-comment" class="form-control" required>
-                  <label data-error="wrong" data-success="right" for="default-comment"> Your comment </label>
+                  <textarea type="text" name="text-input" id="default-comment" class="form-control" 
+                  required></textarea>
+                  <br>
+                  <h3 data-error="wrong" data-success="right" for="default-comment" class="label label-default"
+                  > Your comment </h3>
+                  <br/><br>
                 </div>
                 <div class="modal-footer d-flex justify-content-center">
-                  <input class="btn btn-rounded" type="submit"/>
+                  <input class="btn btn-info btn-rounded" type="submit"/>
                 </div>
               </form>
             </div>

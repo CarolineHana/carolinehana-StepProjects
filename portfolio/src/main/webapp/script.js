@@ -30,22 +30,11 @@ function ReadMore(moreId, readmorebtnId) {
   }
 }
 
-function getComments(){
- document.getElementById('showAmountText').onchange = function() {
-        localStorage.setItem('selectedtem', document.getElementById('showAmountText').value);
-    };
-    if (localStorage.getItem('selectedtem')) {
-        document.getElementById('showAmount_'+localStorage.getItem('selectedtem')).selected = true;
-        return localStorage.getItem('selectedtem');
-    } 
-    else {
-       return 0;
-    }
-}
 // fetchs json array list and makes into list 
-function getJSON(value) {
-    var value = getComments();
-    const commentsListElement = document.getElementById('comments-container')
+function getComments(value) {
+    var value = document.getElementById("showAmount").value;
+    const commentsListElement = document.getElementById('comments-container');
+    commentsListElement.innerHTML = '';
     fetch('/data?showAmount='+ value).then(response => response.json()).then((comments) => {
     comments.forEach((comment) => { 
     commentsListElement.appendChild(createCommentElement(comment));
@@ -57,8 +46,9 @@ function getJSON(value) {
 }
 
 
+
 function createCommentElement(comment) {
-  const commentsListElement = document.createElement('li');
+     const commentsListElement = document.createElement('li');
     commentsListElement.className = 'comment';
 
     const textElement = document.createElement('span');
@@ -73,11 +63,11 @@ function createCommentElement(comment) {
   
 }
 
-/* Tells the server to delete the comment. */
+/* Tells the server to delete a comment. */
 function deleteComments() {
-  fetch('/delete-comment', {method: 'POST'}).then(response => response.json()).then((deleted) => {
-     document.getElementById('comments-container').classList.remove();
-  });
+  fetch('/delete-comment', {method: 'POST'});
+  const list = document.getElementById('comments-container'); 
+  list.removeChild(list.childNodes[0]);
 }
 
 var map;

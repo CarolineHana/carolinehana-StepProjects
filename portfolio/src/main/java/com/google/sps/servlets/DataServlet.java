@@ -42,34 +42,33 @@ public class DataServlet extends HttpServlet {
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
     
+
     List<Comment> comments = new ArrayList<>();
 
-    int counter = 0;
+    int showAmount;
+    try {
+      showAmount = Integer.parseInt(request.getParameter("showAmount"));
+    } catch (NumberFormatException e) {
+      showAmount = -1;
+    }
+
+    int counter =0;
     for (Entity entity : results.asIterable()) {
+      if (showAmount == 0) break; 
       long id = entity.getKey().getId();
-      String userName = (String) entity.getProperty("username");
+      String userName = (String) entity.getProperty("userName");
       String text = (String) entity.getProperty("text");
       String time = (String) entity.getProperty("time");
       Comment comment = new Comment(id, userName, text, time);
+
       comments.add(comment);
-
       counter++;
-      if (counter == 0) break;
-
-          
-      
+      showAmount--; 
     }
-     int showAmount = getAmount(request);
-        if (showAmount == 0){
-            return;
-        }
-        if (showAmount == -1) {
+
+     if (showAmount == -1) {
            comments= comments.subList(0,counter);
         }
-        else{
-           comments= comments.subList(0, showAmount);
-        }
-
 
     // convert to JSON
     Gson gson = new Gson();
@@ -102,19 +101,5 @@ public class DataServlet extends HttpServlet {
       
 
    }
-
-     private int getAmount(HttpServletRequest request) {
-    // Get the input from the form.
-     String showAmountString = request.getParameter("showAmountText");
-
-    // Convert the input to an int.
-    int showAmount;
-    try {
-      showAmount = Integer.parseInt(showAmountString);
-    } catch (NumberFormatException e) {
-      return -1;
-    }
-    return showAmount;
-  }
-  
 }
+
