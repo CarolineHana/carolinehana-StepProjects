@@ -30,7 +30,6 @@ function ReadMore(moreId, readmorebtnId) {
   }
 }
 
-
 // fetchs json array list and makes into list 
 function getComments(value) {
     var value = document.getElementById("showAmount").value;
@@ -187,7 +186,6 @@ function addMarkers(){
   });
 }
 
-
 /** Fetches markers from the backend and adds them to the map. */
 function fetchMarkers() {
   fetch('/markers').then(response => response.json()).then((markers) => {
@@ -253,10 +251,8 @@ function buildInfoWindowInput(lat, lng) {
   description.appendChild(document.createTextNode('Description:'));
   const descriptionBox = document.createElement('textarea');
 
-
   const button = document.createElement('button');
   button.appendChild(document.createTextNode('Submit'));
-
 
   button.onclick = () => {
     const name = document.createElement('h2');
@@ -308,4 +304,3 @@ async function checkLogin() {
     }
   }
 }
-
