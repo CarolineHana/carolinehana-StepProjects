@@ -15,21 +15,35 @@
 package com.google.sps;
 
 import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 
 public final class FindMeetingQuery {
     
   public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
+    Collection<String> meetingAttendees = request.getAttendees();
 
-    Collection<String> peopleInMeeting = request.getAttendees();
+// conditionals for empty events and too long time durations
+    if(meetingAttendees.isEmpty() && events.isEmpty()){
+        return Arrays.asList(TimeRange.WHOLE_DAY);
+    }
+
+    if(request.getDuration() == TimeRange.WHOLE_DAY.duration()+1){
+        return Arrays.asList();
+    }
+
     List<TimeRange> unavailableTimeList = new ArrayList<TimeRange>();
+    
     //loop through all events happening
     for (Event event: events) {
-        Collection<String> conflictEvent = event.getAttendees();
-        //add times of events where people needed in my event are
-        if (isPersonInMeeting(peopleInMeeting, conflictEvent)){
+         Collection<String> scheduledEvent = event.getAttendees();
+        //add times of events where people are busy
+        for(String person: meetingAttendees) {
+         if (scheduledEvent.contains(person)){
             unavailableTimeList.add(event.getWhen());
         }
+      }
     }
 
     Collections.sort(unavailableTimeList, TimeRange.ORDER_BY_START);
@@ -37,33 +51,23 @@ public final class FindMeetingQuery {
     int meetingTime=0;
     long meetingLength= request.getDuration();
     TimeRange available;
-    for(TimeRange time : unavailableTimeList) {
-        int cannotStart = time.start();
-        int cannotEnd = time.end();
+
+    for(TimeRange scheduledmeeting : unavailableTimeList) {
+        int cannotStart = scheduledmeeting.start();
+        int cannotEnd = scheduledmeeting.end();
         if (meetingTime + meetingLength <= cannotStart) {
             available = TimeRange.fromStartEnd(meetingTime, cannotStart, false);
             availableTimeList.add(available);
         }
      meetingTime = Math.max(cannotEnd, meetingTime); 
     }
-// minutes in a day
+// minutes in a whole day
     if (meetingTime + meetingLength <= 1440){
       TimeRange isValidTimeRange = TimeRange.fromStartEnd(meetingTime, 1440, false);
       availableTimeList.add(isValidTimeRange);
     }
 
-    return availableTimeList;
-           
-      
+    return availableTimeList;   
 
   }
-
-  private boolean isPersonInMeeting(Collection<String> peopleInMeeting, Collection<String> conflictEvent) {
-     for(String person: peopleInMeeting) {
-         if (conflictEvent.contains(person)){
-             return true;
-         }
-     }
-    return false;
-}
 }
