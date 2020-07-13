@@ -14,10 +14,56 @@
 
 package com.google.sps;
 
-import java.util.Collection;
+import java.util.*;
+
 
 public final class FindMeetingQuery {
+    
   public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
-    throw new UnsupportedOperationException("TODO: Implement this method.");
+
+    Collection<String> peopleInMeeting = request.getAttendees();
+    List<TimeRange> unavailableTimeList = new ArrayList<TimeRange>();
+    //loop through all events happening
+    for (Event event: events) {
+        Collection<String> conflictEvent = event.getAttendees();
+        //add times of events where people needed in my event are
+        if (isPersonInMeeting(peopleInMeeting, conflictEvent)){
+            unavailableTimeList.add(event.getWhen());
+        }
+    }
+
+    Collections.sort(unavailableTimeList, TimeRange.ORDER_BY_START);
+    Collection<TimeRange> availableTimeList = new ArrayList<TimeRange>();
+    int meetingTime=0;
+    long meetingLength= request.getDuration();
+    TimeRange available;
+    for(TimeRange time : unavailableTimeList) {
+        int cannotStart = time.start();
+        int cannotEnd = time.end();
+        if (meetingTime + meetingLength <= cannotStart) {
+            available = TimeRange.fromStartEnd(meetingTime, cannotStart, false);
+            availableTimeList.add(available);
+        }
+     meetingTime = Math.max(cannotEnd, meetingTime); 
+    }
+// minutes in a day
+    if (meetingTime + meetingLength <= 1440){
+      TimeRange isValidTimeRange = TimeRange.fromStartEnd(meetingTime, 1440, false);
+      availableTimeList.add(isValidTimeRange);
+    }
+
+    return availableTimeList;
+           
+      
+
   }
+
+  private boolean isPersonInMeeting(Collection<String> peopleInMeeting, Collection<String> conflictEvent) {
+     for(String person: peopleInMeeting) {
+         if (conflictEvent.contains(person)){
+             return true;
+         }
+     }
+    return false;
+}
 }
