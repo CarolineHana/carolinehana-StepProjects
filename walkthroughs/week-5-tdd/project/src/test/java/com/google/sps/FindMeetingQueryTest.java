@@ -41,7 +41,6 @@ public final class FindMeetingQueryTest {
   private static final int TIME_0830AM = TimeRange.getTimeInMinutes(8, 30);
   private static final int TIME_0900AM = TimeRange.getTimeInMinutes(9, 0);
   private static final int TIME_0930AM = TimeRange.getTimeInMinutes(9, 30);
-  private static final int TIME_0945AM = TimeRange.getTimeInMinutes(9, 45);
   private static final int TIME_1000AM = TimeRange.getTimeInMinutes(10, 0);
   private static final int TIME_1100AM = TimeRange.getTimeInMinutes(11, 00);
 
@@ -277,8 +276,8 @@ public final class FindMeetingQueryTest {
 @Test
   public void optionalAttendeeWholeDay() {
        // Have each person have different events with one person as a optional attendee 
-    //with an event all day. We should see three options anyway because each person has
-    // split the restricted times.
+    //with an event all day. The same three time slots should be returned 
+    //as when C was not invited.
     //
     // Events  :       |--A--|     |--B--|
     //           |--------------C--------------|     
@@ -309,9 +308,8 @@ public final class FindMeetingQueryTest {
   }
   @Test
     public void optionalAttendeePartDay() {
-       // Have each person have different events with one person as a optional attendee 
-    //with an event at 8:30. We should see two options anyway because each person has
-    // split the restricted times.
+    // Have each person have different events with one person as a optional attendee 
+    //with an event at 8:30. only the early and late parts of the day should be returned.
     //
     // Events  :       |--A--|     |--B--|
     //                       |--C--|     
@@ -342,8 +340,9 @@ public final class FindMeetingQueryTest {
 
   @Test
   public void ignoredOptionalAttendee() {
-    // Have one person, but make it so that there is just enough room at one point in the day to
-    // have the meeting.
+    //  add an optional attendee B who has an event between 8:30 and 8:45.
+    // The optional attendee should be ignored since considering their schedule
+    // would result in a time slot smaller than the requested time.
     //
     // Events  : |--A--|     |----A----|
     //                 |-B-|
@@ -370,11 +369,11 @@ public final class FindMeetingQueryTest {
   
   @Test
   public void onlyOptionalAttendee() {
-    // Have one person, but make it so that there is just enough room at one point in the day to
-    // have the meeting.
+    // just two optional attendees with several gaps in their schedules.
+    // Those gaps should be identified and returned.
     //
-    // Events  : |--A--||--A--|
-    //           |--B--|           |-B-|
+    // Events  : |--A--|   |--A--|
+    //           |--B--|         |--B--|
     // Day     : |---------------------|
     // Options :       |-----|
 
@@ -383,9 +382,9 @@ public final class FindMeetingQueryTest {
             Arrays.asList(PERSON_A)),
             new Event("Event 2", TimeRange.fromStartEnd(TimeRange.START_OF_DAY, TIME_0830AM, false),
             Arrays.asList(PERSON_B)),
-        new Event("Event 3", TimeRange.fromStartDuration(TIME_0830AM, TIME_0900AM),
+        new Event("Event 3", TimeRange.fromStartDuration(TIME_0900AM, TIME_0930AM),
             Arrays.asList(PERSON_A)),
-            new Event("Event 4", TimeRange.fromStartEnd(TIME_0945AM, TimeRange.END_OF_DAY, true),
+            new Event("Event 4", TimeRange.fromStartEnd(TIME_0930AM, TimeRange.END_OF_DAY, true),
             Arrays.asList(PERSON_B)));
 
     MeetingRequest request = new MeetingRequest(NO_ATTENDEES, DURATION_30_MINUTES);
@@ -394,7 +393,9 @@ public final class FindMeetingQueryTest {
 
     Collection<TimeRange> actual = query.query(events, request);
     Collection<TimeRange> expected =
-Arrays.asList(TimeRange.fromStartEnd(TIME_0830AM, TimeRange.END_OF_DAY, true));
+Arrays.asList(TimeRange.fromStartEnd(TIME_0830AM, TIME_0900AM, false), 
+TimeRange.fromStartEnd(TIME_0900AM, TIME_0930AM, false), 
+TimeRange.fromStartEnd(TIME_0930AM, TimeRange.END_OF_DAY, true));
 
 
     Assert.assertEquals(expected, actual);
@@ -402,8 +403,8 @@ Arrays.asList(TimeRange.fromStartEnd(TIME_0830AM, TimeRange.END_OF_DAY, true));
 
    @Test
   public void noGapsOptionalAttendee() {
-    // Have one person, but make it so that there is just enough room at one point in the day to
-    // have the meeting.
+    // No mandatory attendees, just two optional attendees with no gaps
+    // in their schedules. query should return that no time is available.
     //
     // Events  : |----------A----------|
     //           |----------B----------|          
