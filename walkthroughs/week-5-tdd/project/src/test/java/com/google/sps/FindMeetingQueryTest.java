@@ -429,9 +429,9 @@ TimeRange.fromStartEnd(TIME_0930AM, TimeRange.END_OF_DAY, true));
 
 @Test
   public void optimizeOptionalAttendee() {
-    //  add an optional attendee B who has an event between 8:30 and 8:45.
-    // The optional attendee should be ignored since considering their schedule
-    // would result in a time slot smaller than the requested time.
+    //time slot(s) that allow mandatory attendees and the greatest 
+    // possible number of optional attendees to attend. Returns two time options with a
+    // max of 2 optional attendees 
     //
     // Events  :                 |--A--|
     //               |--B--|
