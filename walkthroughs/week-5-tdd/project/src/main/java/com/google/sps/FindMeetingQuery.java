@@ -14,10 +14,93 @@
 
 package com.google.sps;
 
-import java.util.Collection;
+import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+
 
 public final class FindMeetingQuery {
+    
   public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
-    throw new UnsupportedOperationException("TODO: Implement this method.");
+    Collection<String> meetingAttendees = request.getAttendees();
+    Collection<String> optionalAttendees = request.getOptionalAttendees();
+
+// conditionals for empty events and too long time durations
+    if(meetingAttendees.isEmpty() && events.isEmpty()){
+        return Arrays.asList(TimeRange.WHOLE_DAY);
+    }
+
+    if(request.getDuration() == TimeRange.WHOLE_DAY.duration()+1){
+        return Arrays.asList();
+    }
+
+    List<TimeRange> unavailableTimeList = new ArrayList<TimeRange>();
+    List<TimeRange> optionalUnavailable = new ArrayList<TimeRange>();
+    
+    //loop through all events happening
+    for (Event event: events) {
+         Collection<String> scheduledEvent = event.getAttendees();
+        //add times of events where people are busy
+        for(String person: meetingAttendees) {
+         if (scheduledEvent.contains(person)){
+            unavailableTimeList.add(event.getWhen());
+        }
+      }
+    }
+    //loop through all events happening for optional attendees
+    for (Event event: events) {
+         Collection<String> scheduledEvent = event.getAttendees();
+        //add times of events where people are busy
+        for(String person: optionalAttendees) {
+         if (scheduledEvent.contains(person)){
+             if(event.getWhen().duration() == request.getDuration()){
+            unavailableTimeList.add(event.getWhen());
+             }
+            else {
+            optionalUnavailable.add(event.getWhen());
+            }
+        }
+      }
+    }
+
+    Collections.sort(unavailableTimeList, TimeRange.ORDER_BY_START);
+    Collections.sort(optionalUnavailable, TimeRange.ORDER_BY_START);
+    Collection<TimeRange> availableTimeList = new ArrayList<TimeRange>();
+    int meetingTime=0;
+    long meetingLength= request.getDuration();
+    TimeRange available;
+
+    if(meetingAttendees.isEmpty()){
+         for(TimeRange scheduledevent : optionalUnavailable) {
+         int cannotStart = scheduledevent.start();
+         int cannotEnd = scheduledevent.end();
+            if (meetingTime + meetingLength <= cannotStart) {
+            available = TimeRange.fromStartEnd(meetingTime, cannotStart, false);
+            availableTimeList.add(available);
+         }
+         meetingTime = Math.max(cannotEnd, meetingTime); 
+        }
+    }
+    else{
+       for(TimeRange scheduledevent : unavailableTimeList) {
+         int cannotStart = scheduledevent.start();
+         int cannotEnd = scheduledevent.end();
+            if (meetingTime + meetingLength <= cannotStart) {
+            available = TimeRange.fromStartEnd(meetingTime, cannotStart, false);
+            availableTimeList.add(available);
+         }
+         meetingTime = Math.max(cannotEnd, meetingTime); 
+        }
+    }
+
+// minutes in a whole day
+    if (meetingTime + meetingLength <= 1440){
+      TimeRange isValidTimeRange = TimeRange.fromStartEnd(meetingTime, 1440, false);
+      availableTimeList.add(isValidTimeRange);
+    }
+
+    return availableTimeList;   
+
   }
 }
+
