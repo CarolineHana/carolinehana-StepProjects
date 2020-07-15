@@ -58,10 +58,13 @@ public final class FindMeetingQuery {
              }
             else {
             optionalUnavailable.add(event.getWhen());
-            }
+            } 
+         }
+         if (!scheduledEvent.contains(person)){
+            optionalUnavailable.remove(event.getWhen());
+            } 
         }
       }
-    }
 
     Collections.sort(unavailableTimeList, TimeRange.ORDER_BY_START);
     Collections.sort(optionalUnavailable, TimeRange.ORDER_BY_START);
